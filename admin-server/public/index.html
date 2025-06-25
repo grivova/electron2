@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Панель администратора</h1>
+        <div id="status">
+            <p>Статус сервера: <span id="server-status">загрузка...</span></p>
+            <button id="refresh-status-btn" class="btn-small">Обновить</button>
+        </div>
+
+        <div id="db-status-container">
+            <div>
+                <p>Админ -> БД: <span id="admin-db-status">неизвестно</span></p>
+                <small id="admin-db-message"></small>
+            </div>
+            <div>
+                <p>Программа -> БД: <span id="backend-db-status">неизвестно</span></p>
+                <small id="backend-db-message"></small>
+            </div>
+            <button id="check-db-btn" class="btn-small">Проверить</button>
+        </div>
+
+        <div class="network-diag-container">
+            <h2>Сетевая диагностика (Ping)</h2>
+            <div class="ping-controls">
+                <input type="text" id="ping-ip" placeholder="Введите IP-адрес или хост">
+                <button id="ping-btn" class="btn-small">Пинг</button>
+                <button id="ping-stop-btn" class="btn-small" disabled>Стоп</button>
+                <button id="ping-clear-btn" class="btn-small">Очистить</button>
+            </div>
+            <pre id="ping-output"></pre>
+        </div>
+
+        <div class="logs-container">
+            <h2>Логи приложения</h2>
+            <div class="log-controls">
+                <button id="refresh-logs-btn" class="btn-small">Обновить логи</button>
+                <button id="clear-logs-btn" class="btn-small">Очистить</button>
+            </div>
+            <pre id="logs-content">Нажмите "Обновить логи" для просмотра</pre>
+        </div>
+
+        <div class="config-container">
+            <h2>Конфигурация</h2>
+            <form id="config-form">
+                <div class="form-group">
+                    <label for="payslipsPath">Путь к расчетным листкам:</label>
+                    <div class="input-with-button">
+                        <input type="text" id="payslipsPath" name="payslipsPath" required>
+                        <button type="button" id="browse-btn">Обзор...</button>
+                    </div>
+                </div>
+                <button type="submit">Сохранить</button>
+            </form>
+            <p id="config-status"></p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
