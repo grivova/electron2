@@ -1,0 +1,93 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "main": "public/electron.js",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "electron-is-dev": "^2.0.0",
+    "mammoth": "^1.9.1",
+    "nfc-pcsc": "^0.8.1",
+    "pdfjs-dist": "2.16.105",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-pdf": "6.2.2",
+    "react-scripts": "5.0.1",
+    "stream": "^0.0.3",
+    "textract": "^2.5.0",
+    "typescript": "^4.8.4",
+    "util": "^0.12.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js",
+    "preelectron-pack": "npm run build",
+    "rebuild": "electron-rebuild -f -w nfc-pcsc"
+  },
+  "build": {
+    "appId": "com.example.electron-react",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "extraResources": [
+      {
+        "from": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs",
+        "to": "pdf.worker.mjs",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-pdf": "^6.2.0",
+    "buffer": "^6.0.3",
+    "concurrently": "^7.5.0",
+    "crypto-browserify": "^3.12.1",
+    "electron": "^21.2.0",
+    "electron-builder": "^23.6.0",
+    "electron-rebuild": "^3.2.9",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "querystring-es3": "^0.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
+    "wait-on": "^6.0.1"
+  }
+}
