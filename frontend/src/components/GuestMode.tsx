@@ -4,7 +4,6 @@ interface GuestModeProps {
     onBack: () => void;
 }
 
-// Комбинированный парсер: возвращает массив блоков (обычный HTML или таблица телефонов)
 function parseHandbookBlocks(html: string) {
     const blocks: (string | { type: 'phones', rows: { desc: string, internal: string, city: string }[] })[] = [];
     const container = document.createElement('div');
@@ -24,14 +23,13 @@ function parseHandbookBlocks(html: string) {
         if (phoneRows.length > 1) {
             blocks.push({ type: 'phones', rows: phoneRows });
         } else if (phoneRows.length === 1) {
-            // Одиночную строку выводим как обычный текст
             const row = phoneRows[0];
             blocks.push(`<p>${row.desc} ${row.internal}${row.city ? ' ' + row.city : ''}</p>`);
         }
         phoneRows = [];
     };
     children.forEach(node => {
-        if (node.nodeType === 1) { // element
+        if (node.nodeType === 1) {
             const tag = (node as HTMLElement).tagName.toLowerCase();
             const text = (node as HTMLElement).textContent?.trim() || '';
             const phones = Array.from(text.matchAll(phoneRegex), m => m[1]);
@@ -56,7 +54,7 @@ function parseHandbookBlocks(html: string) {
                     htmlBuffer += node.textContent || '';
                 }
             }
-        } else if (node.nodeType === 3) { // text
+        } else if (node.nodeType === 3) { 
             htmlBuffer += node.textContent;
         }
     });
@@ -116,7 +114,6 @@ const GuestMode: React.FC<GuestModeProps> = ({ onBack }) => {
         if (activeTab === 'handbook') {
             loadHandbook();
         }
-        // eslint-disable-next-line
     }, [activeTab]);
 
     const loadHandbook = async () => {

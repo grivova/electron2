@@ -61,7 +61,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         kiosk: true,
         titleBarStyle:'hidden',
-        alwaysOnTop: true,
+        alwaysOnTop: false,
         webPreferences: {
             preload: preloadPath,  
             contextIsolation: true, 
@@ -76,14 +76,12 @@ function createWindow() {
             : `file://${path.join(__dirname, '../build/index.html')}`
     );
 
-    // Отключаем стандартное закрытие
     mainWindow.on('close', (e) => {
         if (!global.allowClose) {
             e.preventDefault();
         }
     });
 
-    // Отключаем сворачивание
     mainWindow.on('minimize', (e) => {
         e.preventDefault();
     });
@@ -91,17 +89,33 @@ function createWindow() {
 
 app.whenReady().then(() => {
     createWindow();
-
-    // Скрыть окно по Ctrl+Alt+Backspace
+    global.allowMinimize = false;
     globalShortcut.register('Control+Alt+Backspace', () => {
+        global.allowMinimize = true;
         if (mainWindow) mainWindow.minimize();
     });
-
-    // Закрыть окно по Ctrl+Alt+Delete
+    
+    mainWindow.on('minimize', function (event) {
+        if (global.allowMinimize) {
+            global.allowMinimize = false;
+            return;
+        }
+        event.preventDefault();
+        setTimeout(() => {
+            if (mainWindow.isMinimized()) {
+                mainWindow.restore();
+                mainWindow.focus();
+            }
+        }, 10);
+    });
     globalShortcut.register('Control+Alt+Enter', () => {
         global.allowClose = true;
         app.quit();
     });
+
+    globalShortcut.register('F11', () => {
+      });
+    
 });
 
 app.on('window-all-closed', () => {
@@ -120,21 +134,16 @@ app.on('will-quit', () => {
     globalShortcut.unregisterAll();
 });
 
-// --- NFC/PC-SC Integration ---
-
-// ВРЕМЕННО ОТКЛЮЧАЕМ NFC ДЛЯ ТЕСТИРОВАНИЯ
+// NFC ДЛЯ ТЕСТИРОВАНИЯ
 /*
 try {
-    const nfc = new NFC(); // Создаем новый экземпляр
+    const nfc = new NFC();
 
     nfc.on('reader', reader => {
         console.log(`${reader.reader.name}  device attached`);
-
         reader.on('card', card => {
             console.log(`${reader.reader.name}  card detected`, card);
-            // UID карты обычно находится в card.uid
             if (card.uid) {
-                // Отправляем UID в рендерер-процесс (в наше React-приложение)
                 mainWindow.webContents.send('card-detected', card.uid);
             }
         });

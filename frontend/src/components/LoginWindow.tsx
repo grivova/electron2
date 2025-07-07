@@ -20,21 +20,15 @@ const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginEr
             
             window.electronAPI.onCardDetected(handleCardDetected);
         };
-
-        // Если API уже доступно (например, при hot-reload), используем его сразу.
         if (window.electronAPI) {
             setupCardListener();
         } else {
-            // Иначе, ждем специального события от preload.js
             console.log('[LoginWindow] electronAPI not ready, waiting for event...');
             window.addEventListener('electronApiReady', setupCardListener, { once: true });
         }
-
-        // Очистка при размонтировании компонента
         return () => {
             console.log('[LoginWindow] Cleaning up listeners.');
             window.removeEventListener('electronApiReady', setupCardListener);
-            // Убеждаемся, что API существует перед тем, как вызывать его
             if (window.electronAPI) {
                 window.electronAPI.removeCardDetectedListeners();
             }

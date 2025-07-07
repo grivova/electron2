@@ -15,19 +15,17 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const ADMIN_PASSWORD = '@Admin2025';
 
-// Middleware
-app.use(morgan('dev')); // Логирование запросов в консоль
-app.use(express.json()); // Парсинг JSON-тел запросов
+app.use(morgan('dev')); 
+app.use(express.json()); 
 
 // Настройка сессий
 app.use(session({
-    secret: 'njdsn30423423fndjjfsn34u', // В проде лучше вынести в .env
+    secret: 'njdsn30423423fndjjfsn34u', 
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } // Сессия на 1 час
+    cookie: { maxAge: 60 * 60 * 1000 } 
 }));
 
-// Middleware для проверки аутентификации
 const checkAuth = (req, res, next) => {
     if (req.session.isAuthenticated) {
         next();
@@ -36,7 +34,6 @@ const checkAuth = (req, res, next) => {
     }
 };
 
-// Роут для логина
 app.post('/login', (req, res) => {
     const { password } = req.body;
     if (password === ADMIN_PASSWORD) {
@@ -56,12 +53,9 @@ app.get('/', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// --- API Endpoints (все защищены) ---
 app.use('/api', checkAuth);
 
-// Эндпоинт для открытия диалога выбора папки
 app.get('/api/browse', async (req, res) => {
-    // Убедимся, что Electron App готово
     if (!electronApp.isReady()) {
         await electronApp.whenReady();
     }
@@ -77,9 +71,6 @@ app.get('/api/browse', async (req, res) => {
     }
 });
 
-// --- WebSocket Server for Ping ---
-
-// Создаем HTTP-сервер для интеграции с WebSocket
 const server = require('http').createServer(app);
 const wss = new WebSocket.Server({ server });
 
@@ -97,7 +88,7 @@ wss.on('connection', (ws) => {
                     return;
                 }
 
-                const pingProcess = spawn('ping', ['-t', ip]); // -t для непрерывного пинга
+                const pingProcess = spawn('ping', ['-t', ip]); 
 
                 pingProcess.stdout.on('data', (data) => {
                     const decodedData = iconv.decode(data, 'cp866');
@@ -114,7 +105,7 @@ wss.on('connection', (ws) => {
                 });
 
                 ws.on('close', () => {
-                    pingProcess.kill(); // Убиваем процесс пинга, если клиент отключился
+                    pingProcess.kill(); 
                 });
             }
         } catch (e) {
@@ -124,10 +115,8 @@ wss.on('connection', (ws) => {
     });
 });
 
-// Эндпоинт для проверки статуса БД через бэкенд
 app.get('/api/check-db', async (req, res) => {
 
-    // --- Проверка 1: Прямое подключение от Admin Server к БД ---
     let adminToDbStatus = { status: 'offline', message: 'Test not performed' };
     try {
         const dbConfig = {
@@ -148,7 +137,6 @@ app.get('/api/check-db', async (req, res) => {
         adminToDbStatus = { status: 'offline', message: `Ошибка прямого подключения: ${error.message}` };
     }
 
-    // --- Проверка 2: Подключение через Backend ---
     let backendToDbStatus = { status: 'offline', message: 'Test not performed' };
     try {
         const response = await axios.get(`${process.env.BACKEND_URL}/api/db-status`, { timeout: 3000 });
@@ -167,20 +155,15 @@ app.get('/api/check-db', async (req, res) => {
     });
 });
 
-// Эндпоинт для получения статуса основного бэкенда
 app.get('/api/status', async (req, res) => {
     try {
-        // Пытаемся сделать запрос к тестовому эндпоинту бэкенда
         await axios.get(`${process.env.BACKEND_URL}/api/test`, { timeout: 2000 });
-        // Если запрос успешен, значит бэкенд онлайн
         res.json({ status: 'online' });
     } catch (error) {
-        // Если запрос провалился (таймаут, ECONNREFUSED), считаем бэкенд оффлайн
         res.json({ status: 'offline' });
     }
 });
 
-// Эндпоинт для получения логов
 app.get('/api/logs', async (req, res) => {
     try {
         const logPath = path.join(__dirname, '../backend/logs/app.log');
@@ -193,7 +176,6 @@ app.get('/api/logs', async (req, res) => {
     }
 });
 
-// Эндпоинт для очистки логов
 app.post('/api/logs/clear', async (req, res) => {
     try {
         const logPath = path.join(__dirname, '../backend/logs/app.log');
@@ -206,8 +188,6 @@ app.post('/api/logs/clear', async (req, res) => {
 });
 
 const configPath = path.join(__dirname, '../backend/config.json');
-
-// Эндпоинт для получения конфигурации
 app.get('/api/config', async (req, res) => {
     try {
         const config = await fs.readJson(configPath);
@@ -218,7 +198,6 @@ app.get('/api/config', async (req, res) => {
     }
 });
 
-// Эндпоинт для обновления конфигурации
 app.post('/api/config', async (req, res) => {
     try {
         const newConfig = req.body;
@@ -230,9 +209,6 @@ app.post('/api/config', async (req, res) => {
     }
 });
 
-// --- Server ---
-
-// Запускаем HTTP-сервер вместо app.listen
 server.listen(PORT, () => {
     console.log(`Admin server listening on http://localhost:${PORT}`);
 }); 

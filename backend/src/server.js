@@ -7,17 +7,12 @@ const logger = require('./config/logger');
 const handbookRoutes = require('./routes/handbook');
 
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use('/api/handbook', handbookRoutes);
-// Test route
 app.get('/api/test', (req, res) => {
     res.json({ message: 'API работает' });
 });
-
-// Получение информации о сотруднике по ID
 app.get('/api/employee/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -47,7 +42,6 @@ app.get('/api/employee/:id', async (req, res) => {
     }
 });
 
-// Эндпоинт для получения расчетного листка
 app.get('/api/payslip/:fileName', async (req, res) => {
     try {
         const { fileName } = req.params;
@@ -56,19 +50,15 @@ app.get('/api/payslip/:fileName', async (req, res) => {
         const payslipBasePath = config.payslipsPath;
 
         let finalPayslipPath;
-
-        // Если путь в конфиге не абсолютный, считаем его от корня проекта
         if (path.isAbsolute(payslipBasePath)) {
             finalPayslipPath = path.join(payslipBasePath, fileName);
         } else {
-            // Корень проекта - это ../../ от текущего файла (src/server.js)
             const projectRoot = path.resolve(__dirname, '../../');
             finalPayslipPath = path.join(projectRoot, payslipBasePath, fileName);
         }
         
         logger.info(`Attempting to find payslip at resolved path: ${finalPayslipPath}`);
 
-        // Проверка на существование файла
         if (await fs.pathExists(finalPayslipPath)) {
             res.sendFile(finalPayslipPath);
         } else {
@@ -81,7 +71,6 @@ app.get('/api/payslip/:fileName', async (req, res) => {
     }
 });
 
-// Эндпоинт для проверки статуса БД
 app.get('/api/db-status', async (req, res) => {
     try {
         await sql.query`SELECT 1`;
@@ -92,10 +81,8 @@ app.get('/api/db-status', async (req, res) => {
     }
 });
 
-// Подключение к БД и запуск сервера
 async function startServer() {
     try {
-        // Загружаем конфиг в самом начале
         const configPath = path.join(__dirname, '../config.json');
         const config = await fs.readJson(configPath);
         const { host, port } = config.server;
@@ -105,7 +92,6 @@ async function startServer() {
             logger.info(`Server is running on http://${host}:${port}`);
         });
     } catch (err) {
-        // Используем logger, если он уже инициализирован
         if (logger) {
             logger.error('Failed to start server:', { error: err.message, stack: err.stack });
         } else {

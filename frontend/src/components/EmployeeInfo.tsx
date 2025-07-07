@@ -34,7 +34,6 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
             
             <div className="employee-header">
                 <div className="employee-photo">
-                    {/* Заглушка для фото */}
                     <div className="photo-placeholder">Фото</div>
                 </div>
                 <div className="employee-details">
@@ -47,10 +46,7 @@ const EmployeeInfo: React.FC<EmployeeInfoProps> = ({
             
             <div className="action-buttons">
                 <button onClick={onViewPayslip}>
-                    Просмотр расчетного листа
-                </button>
-                <button onClick={onPrintPayslip}>
-                    Печать расчетного листа
+                    Перейти к расчётному листу
                 </button>
             </div>
         </div>

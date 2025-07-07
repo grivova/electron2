@@ -21,7 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const pingOutputEl = document.getElementById('ping-output');
     let ws; // Переменная для хранения WebSocket соединения
 
-    // Функция для получения статуса
+    // --- Перехват формы логина ---
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = loginForm.elements['password'].value;
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                if (response.ok) {
+                    // Можно добавить переход на главную или обновление страницы
+                    window.location.href = '/';
+                } else {
+                    alert('Неверный пароль');
+                }
+            } catch (err) {
+                alert('Ошибка авторизации');
+            }
+        });
+    }
+
     function fetchStatus() {
         fetch('/api/status')
             .then(response => response.json())
@@ -185,14 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
             pingOutputEl.textContent = 'Пожалуйста, введите IP-адрес.';
             return;
         }
-
-        // Закрываем старое соединение, если оно есть
         if (ws) {
             ws.close();
         }
-
-        // Устанавливаем новое соединение
-        // Используем wss:// для HTTPS или ws:// для HTTP
         const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
         ws = new WebSocket(`${wsProtocol}://${window.location.host}`);
 
