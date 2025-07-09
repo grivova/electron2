@@ -1,9 +1,11 @@
 const { app, BrowserWindow, protocol, ipcMain, globalShortcut } = require('electron');
 const path = require('path');
+require('dotenv').config({path: path.join(__dirname, 'config.env')})
 const isDev = require('electron-is-dev');
-const { NFC } = require('nfc-pcsc');
 const fs = require('fs');
-
+const COM_PORT = process.env.COM_PORT;
+const COM_SPEED = process.env.COM_SPEED;
+const { SerialPort } = require('serialport');
 protocol.registerSchemesAsPrivileged([
     {
         scheme: 'app',
@@ -134,46 +136,48 @@ app.on('will-quit', () => {
     globalShortcut.unregisterAll();
 });
 
-// NFC ДЛЯ ТЕСТИРОВАНИЯ
-/*
+//считыватель
+SerialPort.list().then(ports => {
+    console.log('Доступные порты:', ports.map(p => p.path));
+}).catch(err => {
+    console.error('Ошибка при получении списка портов:', err);
+});
 try {
-    const nfc = new NFC();
-
-    nfc.on('reader', reader => {
-        console.log(`${reader.reader.name}  device attached`);
-        reader.on('card', card => {
-            console.log(`${reader.reader.name}  card detected`, card);
-            if (card.uid) {
-                mainWindow.webContents.send('card-detected', card.uid);
-            }
-        });
-
-        reader.on('card.off', card => {
-            console.log(`${reader.reader.name}  card removed`, card);
-        });
-
-        reader.on('error', err => {
-            console.log(`${reader.reader.name}  an error occurred`, err);
-        });
-
-        reader.on('end', () => {
-            console.log(`${reader.reader.name}  device removed`);
-        });
+    const port = new SerialPort({ path: COM_PORT, baudRate: parseInt(COM_SPEED, 10)});
+    let buffer = '';
+    port.on('open', () => {
+        console.log(' Serial port открыт');
     });
-
-    nfc.on('error', err => {
-        console.log('an error occurred', err);
+    port.on('data', (data) => {
+        console.log('RAW DATA:', data);
+        buffer += data.toString('utf8');
+        if (buffer.includes('\n')) {
+            const lines = buffer.split('\n');
+            lines.forEach((line, idx) => {
+                if (idx < lines.length - 1) {
+                    const uid = line.trim();
+                    if (uid) {
+                        console.log(`UID карты: ${uid}`);
+                        if (mainWindow && mainWindow.webContents) {
+                            mainWindow.webContents.send('card-detected', uid);
+                            console.log(` Отправка события 'card-detected' в рендерер с UID: ${uid}`);
+                        } else {
+                            console.warn('mainWindow или webContents не определены, событие не отправлено');
+                        }
+                    }
+                }
+            });
+            buffer = lines[lines.length - 1];
+        }
     });
-
-} catch (e) {
-    console.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.error("!!! FATAL: FAILED TO INITIALIZE NFC-PCSC !!!");
-    console.error(e);
-    console.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    port.on('error', (err) => {
+        console.error('Ошибка serialport:', err);
+    });
+} catch (err) {
+    console.error('!!! FATAL: FAILED TO INITIALIZE SERIALPORT !!!', err);
 }
-*/
 
-console.log("NFC temporarily disabled for testing");
+//console.log("NFC disabled for testing");
 
 ipcMain.handle('get-app-config', async (event) => {
   console.log('[IPC] Renderer requested app config. Sending:', appConfig);

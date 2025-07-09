@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const pingClearBtn = document.getElementById('ping-clear-btn');
     const pingIpInput = document.getElementById('ping-ip');
     const pingOutputEl = document.getElementById('ping-output');
-    let ws; // Переменная для хранения WebSocket соединения
+    let ws; 
 
-    // --- Перехват формы логина ---
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ password })
                 });
                 if (response.ok) {
-                    // Можно добавить переход на главную или обновление страницы
                     window.location.href = '/';
                 } else {
                     alert('Неверный пароль');
@@ -64,10 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Обработчик нажатия на кнопку "Обновить"
     refreshBtn.addEventListener('click', fetchStatus);
-
-    // Функция для получения логов
     function fetchLogs() {
         logsElement.textContent = 'загрузка...';
         fetch('/api/logs')
@@ -83,8 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 logsElement.style.color = '#ff6b6b';
             });
     }
-
-    // Функция для получения и отображения конфигурации
     function fetchConfig() {
         fetch('/api/config')
             .then(response => response.json())
@@ -98,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Обработчик сохранения формы
     configForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const newConfig = {
@@ -124,8 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
             configStatus.style.color = 'red';
         });
     });
-
-    // Обработчик нажатия на кнопку "Обзор"
     browseBtn.addEventListener('click', async () => {
         try {
             const response = await fetch('/api/browse');
@@ -141,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Функция для отрисовки статуса
     function renderStatus(element, messageEl, data) {
         messageEl.textContent = data.message;
         if (data.status === 'online') {
@@ -152,8 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             element.style.color = 'red';
         }
     }
-
-    // Функция для проверки статуса БД
     function checkDbStatus() {
         adminDbStatusEl.textContent = 'проверка...';
         backendDbStatusEl.textContent = 'проверка...';
@@ -179,15 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     checkDbBtn.addEventListener('click', checkDbStatus);
 
-    // Функция для очистки логов
     function clearLogs() {
-        if (!confirm('Вы уверены, что хотите очистить лог-файл? Это действие необратимо.')) {
+        if (!confirm('Это действие удалит лог-файл полностью и навсегда. Вы уверены?')) {
             return;
         }
         fetch('/api/logs/clear', { method: 'POST' })
             .then(response => {
                 if (response.ok) {
-                    fetchLogs(); // Обновляем логи после очистки
+                    fetchLogs();
                 } else {
                     alert('Не удалось очистить логи.');
                 }
@@ -201,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshLogsBtn.addEventListener('click', fetchLogs);
     clearLogsBtn.addEventListener('click', clearLogs);
 
-    // Функция для пинга через WebSocket
     function doPing() {
         const ip = pingIpInput.value.trim();
         if (!ip) {
@@ -215,16 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ws = new WebSocket(`${wsProtocol}://${window.location.host}`);
 
         ws.onopen = () => {
-            pingOutputEl.textContent = ''; // Очищаем вывод
+            pingOutputEl.textContent = ''; 
             pingBtn.disabled = true;
             pingStopBtn.disabled = false;
-            // Отправляем команду на сервер
             ws.send(JSON.stringify({ type: 'ping', ip }));
         };
 
         ws.onmessage = (event) => {
             const message = JSON.parse(event.data);
-            // Добавляем новые данные в консоль, прокручивая вниз
             pingOutputEl.textContent += message.data;
             pingOutputEl.scrollTop = pingOutputEl.scrollHeight;
         };
@@ -238,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('WebSocket connection closed');
             pingBtn.disabled = false;
             pingStopBtn.disabled = true;
-            ws = null; // Очищаем переменную
+            ws = null;
         };
     }
 
@@ -251,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearPingOutput() {
         pingOutputEl.textContent = '';
     }
-
     pingBtn.addEventListener('click', doPing);
     pingStopBtn.addEventListener('click', stopPing);
     pingClearBtn.addEventListener('click', clearPingOutput);

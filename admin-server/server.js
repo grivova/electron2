@@ -13,14 +13,14 @@ require('dotenv').config({ path: path.join(__dirname, 'config.env') });
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const ADMIN_PASSWORD = '@Admin2025';
-
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const SECRET_KEY = process.env.SECRET_KEY;
 app.use(morgan('dev')); 
 app.use(express.json()); 
 
 // Настройка сессий
 app.use(session({
-    secret: 'njdsn30423423fndjjfsn34u', 
+    secret: SECRET_KEY, 
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60 * 60 * 1000 } 
@@ -44,11 +44,9 @@ app.post('/login', (req, res) => {
     }
 });
 
-// Отдаем статичные файлы, но index.html будет защищен
 app.use('/login.html', express.static(path.join(__dirname, 'public', 'login.html')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Главная страница защищена
 app.get('/', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -75,7 +73,7 @@ const server = require('http').createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
-    console.log('Client connected to WebSocket');
+    console.log('Good connect to Web-socket');
 
     ws.on('message', (message) => {
         try {
@@ -179,7 +177,7 @@ app.get('/api/logs', async (req, res) => {
 app.post('/api/logs/clear', async (req, res) => {
     try {
         const logPath = path.join(__dirname, '../backend/logs/app.log');
-        await fs.truncate(logPath, 0); // Очищаем файл
+        await fs.truncate(logPath, 0); 
         res.status(200).json({ message: 'Logs cleared successfully' });
     } catch (error) {
         console.error('Error clearing log file:', error);
@@ -210,5 +208,5 @@ app.post('/api/config', async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`Admin server listening on http://localhost:${PORT}`);
+    console.log(`Admin server on http://localhost:${PORT}`);
 }); 

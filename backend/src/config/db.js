@@ -8,7 +8,7 @@ const config = {
     server: process.env.DB_SERVER,
     database: process.env.DB_NAME,
     options: {
-        encrypt: false, // для локальной сети
+        encrypt: false, 
         trustServerCertificate: true,
         enableArithAbort: true
     }
@@ -17,9 +17,9 @@ const config = {
 async function connectDB() {
     try {
         await sql.connect(config);
-        console.log('Connected to MSSQL');
+        console.log('Connect MSSQL');
     } catch (err) {
-        console.error('Database Connection Failed! Bad Config: ', err);
+        console.error('DB Connection Fail. Config error: ', err);
     }
 }
 

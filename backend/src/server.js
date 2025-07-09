@@ -74,10 +74,10 @@ app.get('/api/payslip/:fileName', async (req, res) => {
 app.get('/api/db-status', async (req, res) => {
     try {
         await sql.query`SELECT 1`;
-        res.status(200).json({ status: 'ok', message: 'Database connection successful' });
+        res.status(200).json({ status: 'ok', message: 'DB connection successful' });
     } catch (err) {
         logger.error('Database connection check failed', { error: err.message, stack: err.stack });
-        res.status(500).json({ status: 'error', message: 'Database connection failed' });
+        res.status(500).json({ status: 'error', message: 'DB connection failed' });
     }
 });
 
