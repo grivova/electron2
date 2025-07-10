@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const fs = require('fs-extra');
@@ -12,11 +13,19 @@ const WebSocket = require('ws');
 require('dotenv').config({ path: path.join(__dirname, 'config.env') });
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3005; // Исправлено на 3005
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SECRET_KEY = process.env.SECRET_KEY;
+
+// Константы путей
+const LOGS_DIR = path.join(__dirname, 'logs');
+const CARD_LOG_PATH = path.join(LOGS_DIR, 'card-reader.log');
+const TEST_LOG_PATH = path.join(LOGS_DIR, 'test.log');
+
+// Middleware
+app.use(cors());
 app.use(morgan('dev')); 
-app.use(express.json()); 
+app.use(express.json());
 
 // Настройка сессий
 app.use(session({
@@ -26,14 +35,26 @@ app.use(session({
     cookie: { maxAge: 60 * 60 * 1000 } 
 }));
 
+// Проверка и создание папки для логов
+if (!fs.existsSync(LOGS_DIR)) {
+    try {
+        fs.mkdirSync(LOGS_DIR, { recursive: true });
+        console.log(`Created logs directory at: ${LOGS_DIR}`);
+    } catch (err) {
+        console.error('Failed to create logs directory:', err);
+        process.exit(1);
+    }
+}
+
 const checkAuth = (req, res, next) => {
     if (req.session.isAuthenticated) {
         next();
     } else {
-        res.redirect('/login.html');
+        res.status(401).send('Unauthorized');
     }
 };
 
+// Маршруты
 app.post('/login', (req, res) => {
     const { password } = req.body;
     if (password === ADMIN_PASSWORD) {
@@ -51,8 +72,57 @@ app.get('/', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.use('/api', checkAuth);
+// Card Event Endpoint (без checkAuth для тестирования)
+app.post('/api/card-event', (req, res) => {
+    console.log('[DEBUG] Received card event:', req.body);
+    
+    if (!req.body || !req.body.event) {
+        console.error('Invalid request body:', req.body);
+        return res.status(400).json({ message: 'Missing required field: event' });
+    }
+    
+    const { event, uid = 'N/A', timestamp = Date.now() } = req.body;
+    const logLine = `[${new Date(timestamp).toISOString()}] [${event}] UID: ${uid}\n`;
+    
+    try {
+        fs.appendFileSync(CARD_LOG_PATH, logLine);
+        console.log('[SUCCESS] Log written to:', CARD_LOG_PATH);
+        return res.status(200).json({ message: 'OK', path: CARD_LOG_PATH });
+    } catch (err) {
+        console.error('[ERROR] Failed to write log:', err);
+        return res.status(500).json({ 
+            message: 'Failed to write log',
+            error: err.message,
+            path: CARD_LOG_PATH
+        });
+    }
+});
 
+// Test Log Endpoint
+app.post('/test-log', (req, res) => {
+    console.log('Test log request:', req.body);
+    try {
+        fs.appendFileSync(TEST_LOG_PATH, `${new Date().toISOString()} ${JSON.stringify(req.body)}\n`);
+        res.send('OK');
+    } catch (err) {
+        console.error('Test log error:', err);
+        res.status(500).send('Error writing test log');
+    }
+});
+
+// Получение логов
+app.get('/api/card-logs', (req, res) => {
+    try {
+        if (!fs.existsSync(CARD_LOG_PATH)) {
+            return res.status(404).send('Log file not found');
+        }
+        const logs = fs.readFileSync(CARD_LOG_PATH, 'utf-8');
+        res.type('text/plain').send(logs);
+    } catch (err) {
+        console.error('Error reading logs:', err);
+        res.status(500).send('Error reading log file');
+    }
+});
 app.get('/api/browse', async (req, res) => {
     if (!electronApp.isReady()) {
         await electronApp.whenReady();
@@ -208,5 +278,7 @@ app.post('/api/config', async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`Admin server on http://localhost:${PORT}`);
-}); 
+    console.log(`Admin server running on http://localhost:${PORT}`);
+    console.log(`Card logs path: ${CARD_LOG_PATH}`);
+    console.log(`Test logs path: ${TEST_LOG_PATH}`);
+});

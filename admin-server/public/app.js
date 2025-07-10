@@ -238,6 +238,26 @@ document.addEventListener('DOMContentLoaded', () => {
     pingStopBtn.addEventListener('click', stopPing);
     pingClearBtn.addEventListener('click', clearPingOutput);
 
+    const cardLogsElement = document.getElementById('card-logs-content');
+    const refreshCardLogsBtn = document.getElementById('refresh-card-logs-btn');
+
+    function fetchCardLogs() {
+        cardLogsElement.textContent = 'загрузка...';
+        fetch('/api/card-logs')
+            .then(response => {
+                if (!response.ok) throw new Error('Не удалось загрузить логи считывателя');
+                return response.text();
+            })
+            .then(data => {
+                cardLogsElement.textContent = data || 'Лог-файл пуст.';
+            })
+            .catch(err => {
+                cardLogsElement.textContent = `Ошибка при загрузке логов: ${err.message}`;
+                cardLogsElement.style.color = '#ff6b6b';
+            });
+    }
+    refreshCardLogsBtn.addEventListener('click', fetchCardLogs);
+
     fetchStatus();
     fetchConfig();
 }); 

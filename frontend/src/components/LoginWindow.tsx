@@ -11,6 +11,16 @@ const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginEr
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+        const testConnection = async () => {
+            try {
+                const response = await fetch('/api/test-card/7297704'); // Тестовый номер
+                const data = await response.json();
+                console.log('Backend response:', data);
+            } catch (err) {
+                console.error('Connection test failed:', err);
+            }
+        };
+        testConnection();
         const setupCardListener = () => {
             console.log('[LoginWindow] Setting up card listener...');
             const handleCardDetected = (uid: string) => {
@@ -53,20 +63,20 @@ const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginEr
         <div className="login-window">
             <h2>Вход в систему</h2>
             <div className="card-prompt">
-                <p>Пожалуйста, приложите вашу карту к считывателю</p>
+                <p>Пожалуйста, приложите вашу карту пропуска к считывателю</p>
                 <div className="card-icon">💳</div>
             </div>
 
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
-                    <label htmlFor="id">или введите ID сотрудника:</label>
+                    <label htmlFor="id"></label>
                     <input
                         ref={inputRef}
-                        type="text"
+                        type="password"
                         id="id"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
-                        placeholder="ID сотрудника"
+                        placeholder=" "
                     />
                 </div>
                 {loginError && <div className="error" style={{ color: 'red', marginTop: 8 }}>{loginError}</div>}

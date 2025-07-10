@@ -25,7 +25,12 @@ function App() {
 
     const handleLogin = async (id: string) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/employee/${id}`);
+            // Если только цифры и длина 7 — это карта, иначе id
+            const isCardUid = /^\d{7}$/.test(id);
+            const url = isCardUid
+                ? `http://localhost:3001/api/employee/card/${id}`
+                : `http://localhost:3001/api/employee/${id}`;
+            const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
                 setEmployee(data);

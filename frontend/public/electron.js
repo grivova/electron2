@@ -6,6 +6,7 @@ const fs = require('fs');
 const COM_PORT = process.env.COM_PORT;
 const COM_SPEED = process.env.COM_SPEED;
 const { SerialPort } = require('serialport');
+const axios = require('axios');
 protocol.registerSchemesAsPrivileged([
     {
         scheme: 'app',
@@ -155,9 +156,22 @@ try {
             const lines = buffer.split('\n');
             lines.forEach((line, idx) => {
                 if (idx < lines.length - 1) {
-                    const uid = line.trim();
+                    const uid = line.trim().replace(/\D/g, '');
                     if (uid) {
                         console.log(`UID карты: ${uid}`);
+                        console.log('[DEBUG] Отправляю событие на admin-server:', {
+                            event: 'CARD_PLACED',
+                            uid: uid,
+                            timestamp: Date.now()
+                        });
+                        // Логгируем в admin-server
+                        axios.post('http://localhost:3005/api/card-event', {
+                            event: 'CARD_PLACED',
+                            uid: uid,
+                            timestamp: Date.now()
+                        }).catch(err => {
+                            console.error('[ADMIN][CARD_LOG] Ошибка отправки:', err.message);
+                        });
                         if (mainWindow && mainWindow.webContents) {
                             mainWindow.webContents.send('card-detected', uid);
                             console.log(` Отправка события 'card-detected' в рендерер с UID: ${uid}`);

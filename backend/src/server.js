@@ -5,43 +5,16 @@ const fs = require('fs-extra');
 const { connectDB, sql } = require('./config/db');
 const logger = require('./config/logger');
 const handbookRoutes = require('./routes/handbook');
+const employeeRoutes = require('./routes/employee');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/handbook', handbookRoutes);
+app.use('/api/employee', employeeRoutes);
 app.get('/api/test', (req, res) => {
     res.json({ message: 'API работает' });
 });
-app.get('/api/employee/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await sql.query`
-            SELECT 
-                id,
-                causeObject,
-                tnom,
-                famaly,
-                ima,
-                otch,
-                category,
-                organization,
-                identNumber
-            FROM dbo.mk570
-            WHERE id = ${id}
-        `;
-
-        if (result.recordset.length === 0) {
-            return res.status(404).json({ message: 'Сотрудник не найден' });
-        }
-
-        res.json(result.recordset[0]);
-    } catch (err) {
-        logger.error('Error in /api/employee/:id', { error: err.message, stack: err.stack });
-        res.status(500).json({ message: 'Ошибка сервера', error: err.message });
-    }
-});
-
 app.get('/api/payslip/:fileName', async (req, res) => {
     try {
         const { fileName } = req.params;
