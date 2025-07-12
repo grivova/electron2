@@ -1,5 +1,10 @@
 {
-    "payslipsPath": "frontend/public/payslips",
+    "payslipsPath": "\\192.168.39.124\\С$\\payslips",
+    "networkCredentials": {
+        "username": "",
+        "password": "",
+        "domain": ""
+    },
     "server": {
         "host": "0.0.0.0",
         "port": 3001

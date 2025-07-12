@@ -1,0 +1,3 @@
+@echo off
+echo let's go...
+node "D:\rasch\backend\src\config\startArchiveCards.js"

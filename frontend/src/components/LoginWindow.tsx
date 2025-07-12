@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 interface LoginWindowProps {
     onLogin: (id: string) => void;
     onGuestMode: () => void;
     loginError?: string;
 }
-
 const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginError }) => {
     const [id, setId] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -13,7 +11,7 @@ const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginEr
     useEffect(() => {
         const testConnection = async () => {
             try {
-                const response = await fetch('/api/test-card/7297704'); // Тестовый номер
+                const response = await fetch('/api/test-card/7297704'); 
                 const data = await response.json();
                 console.log('Backend response:', data);
             } catch (err) {

@@ -1,5 +1,6 @@
 const sql = require('mssql');
 const path = require('path');
+const logger = require('./logger');
 require('dotenv').config({ path: path.join(__dirname, '../../config.env') });
 
 const config = {
@@ -17,9 +18,9 @@ const config = {
 async function connectDB() {
     try {
         await sql.connect(config);
-        console.log('Connect MSSQL');
+        logger.verbose('Connect MSSQL');
     } catch (err) {
-        console.error('DB Connection Fail. Config error: ', err);
+        logger.error('DB Connection Fail. Config error: ', err);
     }
 }
 

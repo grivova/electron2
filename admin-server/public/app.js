@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(err => {
-                console.error('Ошибка при получении статуса:', err);
+                logger.error('Ошибка при получении статуса:', err);
                 statusElement.textContent = 'Ошибка';
                 statusElement.style.color = 'orange';
             });
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 payslipsPathInput.value = config.payslipsPath;
             })
             .catch(err => {
-                console.error('Ошибка при получении конфигурации:', err);
+                logger.error('Ошибка при получении конфигурации:', err);
                 configStatus.textContent = 'Не удалось загрузить конфигурацию.';
                 configStatus.style.color = 'red';
             });
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { configStatus.textContent = ''; }, 3000);
         })
         .catch(err => {
-            console.error('Ошибка при сохранении конфигурации:', err);
+            logger.error('Ошибка при сохранении конфигурации:', err);
             configStatus.textContent = 'Ошибка при сохранении.';
             configStatus.style.color = 'red';
         });
@@ -123,10 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 payslipsPathInput.value = data.path;
             } else {
-                console.info('Folder selection was canceled.');
+                logger.info('Folder selection was canceled.');
             }
         } catch (error) {
-            console.error('Error opening folder dialog:', error);
+            logger.error('Error opening folder dialog:', error);
             alert('Не удалось открыть диалог выбора папки.');
         }
     });
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderStatus(backendDbStatusEl, backendDbMessageEl, data.backendToDb);
             })
             .catch(err => {
-                console.error('Ошибка при проверке статуса БД:', err);
+                logger.error('Ошибка при проверке статуса БД:', err);
                 adminDbStatusEl.textContent = 'Ошибка';
                 adminDbStatusEl.style.color = 'orange';
                 backendDbStatusEl.textContent = 'Ошибка';
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(err => {
-                console.error('Ошибка при очистке логов:', err);
+                logger.error('Ошибка при очистке логов:', err);
                 alert('Произошла ошибка при очистке логов.');
             });
     }
@@ -213,12 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         ws.onerror = (error) => {
-            console.error('WebSocket Error:', error);
+            logger.error('WebSocket Error:', error);
             pingOutputEl.textContent += '\nОшибка WebSocket соединения.';
         };
 
         ws.onclose = () => {
-            console.log('WebSocket connection closed');
+            logger.info('WebSocket connection closed');
             pingBtn.disabled = false;
             pingStopBtn.disabled = true;
             ws = null;

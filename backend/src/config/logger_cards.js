@@ -4,28 +4,26 @@ const fs = require('fs');
 const zlib = require('zlib');
 const cron = require('node-cron');
 
-const logDir = path.join(__dirname, '../../logs/');
-const logFile = path.join(logDir, 'app.log');
+const logDir = path.join(__dirname, '../../logs');
+const logFile = path.join(logDir, 'cards.log');
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });
 }
 
+//логгируем cards
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'HH:mm:ss YYYY-MM-DD '
-    }),
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     winston.format.errors({ stack: true }),
     winston.format.splat(),
     winston.format.json()
   ),
-  defaultMeta: { service: 'user-service' },
   transports: [
     new winston.transports.File({ 
-      filename: logFile,
-      maxsize: 5 * 1024 * 1024, // 5MB
+      filename: logFile, 
+      maxsize: 5 * 1024 * 1024,
     }),
     new winston.transports.Console({
       format: winston.format.combine(
@@ -36,11 +34,10 @@ const logger = winston.createLogger({
   ]
 });
 
-// Архивация логов
 const archiveLog = () => {
   if (!fs.existsSync(logFile)) return;
 
-  const archiveName = `app-${new Date().toISOString().slice(0, 10).replace(/-/g, '_')}.log.gz`;
+  const archiveName = `cards-${new Date().toISOString().slice(0, 10).replace(/-/g, '_')}.log.gz`
   const archivePath = path.join(logDir, archiveName);
 
   fs.createReadStream(logFile)
@@ -56,7 +53,6 @@ const archiveLog = () => {
 };
 
 cron.schedule('0 0 1 * *', archiveLog);
-
 module.exports = {
   archiveLog,
   logger

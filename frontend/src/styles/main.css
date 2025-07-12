@@ -128,6 +128,48 @@ button:disabled {
     color: #666;
 }
 
+/* Секция расчётных листов */
+.payslip-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.payslip-section h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.period-selector {
+    margin-bottom: 20px;
+}
+
+.period-selector label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+.period-selector select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.period-selector select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
 .action-buttons {
     display: flex;
     gap: 10px;
@@ -137,10 +179,19 @@ button:disabled {
 .action-buttons button {
     background-color: #28a745;
     color: white;
+    flex: 1;
 }
 
 .action-buttons button:hover {
     background-color: #218838;
+}
+
+.action-buttons button:first-child {
+    background-color: #007bff;
+}
+
+.action-buttons button:first-child:hover {
+    background-color: #0056b3;
 }
 
 /* Верхняя панель с кнопкой назад */

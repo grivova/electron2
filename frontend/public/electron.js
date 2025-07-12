@@ -7,6 +7,7 @@ const COM_PORT = process.env.COM_PORT;
 const COM_SPEED = process.env.COM_SPEED;
 const { SerialPort } = require('serialport');
 const axios = require('axios');
+const logger = require('../../backend/src/config/logger');
 protocol.registerSchemesAsPrivileged([
     {
         scheme: 'app',
@@ -37,15 +38,15 @@ const configPath = isDev
     : path.join(process.resourcesPath, 'config.json');
 
 try {
-    console.log(`[Config] Trying to load config from: ${configPath}`);
+    logger.info(`[Config] Trying to load config from: ${configPath}`);
     if (fs.existsSync(configPath)) {
         appConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        console.log('[Config] External config loaded successfully:', appConfig);
+        logger.info('[Config] External config loaded successfully:', appConfig);
     } else {
-        console.log('[Config] External config file not found. Using default values.');
+        logger.warn('[Config] External config file not found. Using default values.');
     }
 } catch (error) {
-    console.error('[Config] Could not load external config file:', error);
+    logger.error('[Config] Could not load external config file:', error);
 }
 
 global.allowClose = false;
@@ -54,9 +55,9 @@ function createWindow() {
     const preloadPath = path.join(__dirname, 'preload.js');
     try {
         fs.accessSync(preloadPath);
-        console.log(`[DEBUG] Preload script found at: ${preloadPath}`);
+        logger.debug(`[DEBUG] Preload script found at: ${preloadPath}`);
     } catch (e) {
-        console.error(`[FATAL] Preload script not found at: ${preloadPath}`);
+        logger.error(`[FATAL] Preload script not found at: ${preloadPath}`);
         app.quit();
         return;
     }
@@ -139,18 +140,18 @@ app.on('will-quit', () => {
 
 //считыватель
 SerialPort.list().then(ports => {
-    console.log('Доступные порты:', ports.map(p => p.path));
+    logger.info('Доступные порты:', ports.map(p => p.path));
 }).catch(err => {
-    console.error('Ошибка при получении списка портов:', err);
+    logger.error('Ошибка при получении списка портов:', err);
 });
 try {
     const port = new SerialPort({ path: COM_PORT, baudRate: parseInt(COM_SPEED, 10)});
     let buffer = '';
     port.on('open', () => {
-        console.log(' Serial port открыт');
+        logger.info(' Serial port открыт');
     });
     port.on('data', (data) => {
-        console.log('RAW DATA:', data);
+        logger.info('RAW DATA:', data);
         buffer += data.toString('utf8');
         if (buffer.includes('\n')) {
             const lines = buffer.split('\n');
@@ -190,8 +191,6 @@ try {
 } catch (err) {
     console.error('!!! FATAL: FAILED TO INITIALIZE SERIALPORT !!!', err);
 }
-
-//console.log("NFC disabled for testing");
 
 ipcMain.handle('get-app-config', async (event) => {
   console.log('[IPC] Renderer requested app config. Sending:', appConfig);

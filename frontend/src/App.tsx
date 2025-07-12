@@ -21,6 +21,7 @@ function App() {
     const [isGuestMode, setIsGuestMode] = useState(false);
     const [employee, setEmployee] = useState<Employee | null>(null);
     const [showPayslip, setShowPayslip] = useState(false);
+    const [selectedPeriod, setSelectedPeriod] = useState('');
     const [loginError, setLoginError] = useState('');
 
     const handleLogin = async (id: string) => {
@@ -54,18 +55,26 @@ function App() {
         setEmployee(null);
         setIsGuestMode(false);
         setShowPayslip(false);
+        setSelectedPeriod('');
     };
 
-    const handleViewPayslip = () => {
-        setShowPayslip(true);
-    };
-
-    const handlePrintPayslip = () => {
+    const handleViewPayslip = (period: string) => {
+        setSelectedPeriod(period);
         setShowPayslip(true);
     };
 
     const handlePayslipBack = () => {
         setShowPayslip(false);
+        setSelectedPeriod('');
+    };
+
+    // Функция для получения URL расчётного листа
+    const getPayslipUrl = (employee: Employee, period: string) => {
+        // Формируем имя файла: табельный_номер.pdf
+        const fileName = `${employee.tnom}.pdf`;
+        
+        // Возвращаем URL для API
+        return `http://localhost:3001/api/payslip/${period}/${fileName}`;
     };
 
     return (
@@ -76,14 +85,13 @@ function App() {
                 <GuestMode onBack={handleBack} />
             ) : showPayslip ? (
                 <PayslipViewer
-                    fileUrl="/payslips/test.pdf"
+                    fileUrl={employee && selectedPeriod ? getPayslipUrl(employee, selectedPeriod) : "/payslips/test.pdf"}
                     onBack={handlePayslipBack}
                 />
             ) : employee ? (
                 <EmployeeInfo
                     employee={employee}
                     onViewPayslip={handleViewPayslip}
-                    onPrintPayslip={handlePrintPayslip}
                     onBack={handleBack}
                 />
             ) : null}

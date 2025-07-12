@@ -4,7 +4,7 @@ const cors = require('cors');
 const { connectDB } = require('./config/db');
 const employeeRoutes = require('./routes/employee');
 const handbookRoutes = require('./routes/handbook');
-
+const logger = require('./config/logger');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -20,5 +20,5 @@ app.get('/api/test', (req, res) => {
 connectDB();
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    logger.info(`Server running on port ${PORT}`);
 }); 

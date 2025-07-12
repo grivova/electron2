@@ -1,7 +1,6 @@
-console.log('[Preload] Script started.');
-
+const logger = require('../../backend/src/config/logger');
+logger.info('[Preload] Script started.');
 const { contextBridge, ipcRenderer } = require('electron');
-
 contextBridge.exposeInMainWorld(
   'electronAPI',
   {
@@ -16,5 +15,5 @@ contextBridge.exposeInMainWorld(
   }
 );
 
-console.log('[Preload] Script finished. electronAPI exposed.');
+logger.log('[Preload] Script finished. electronAPI exposed.');
 window.dispatchEvent(new Event('electronApiReady'));
