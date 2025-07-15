@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import config from "../../src/config.json";
 interface GuestModeProps {
     onBack: () => void;
 }
@@ -119,7 +119,7 @@ const GuestMode: React.FC<GuestModeProps> = ({ onBack }) => {
     const loadHandbook = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:3001/api/handbook/html');
+            const response = await fetch(`${config.backendUrl}/api/handbook/html`);
             const html = await response.text();
             setHandbookContent(html);
         } catch (error) {

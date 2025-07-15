@@ -4,12 +4,12 @@ const path = require('path');
 const fs = require('fs');
 const mammoth = require('mammoth');
 const { logger } = require('../config/logger');
-
+require('dotenv').config({ path: path.join(__dirname, '../../config.env') });
 router.get('/test', (req, res) => {
     res.send('Handbook test route works!');
 });
 router.get('/html', async (req, res) => {
-    const docxPath = path.join(__dirname, '../../../frontend/public/handbook.docx');
+    const docxPath = path.join(__dirname, process.env.DOCX_PATH);
     logger.info('Checking document', { 
         path: docxPath,
         exists: fs.existsSync(docxPath) 

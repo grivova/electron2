@@ -6,18 +6,18 @@ const { connectDB, sql } = require('./config/db');
 const { logger } = require('./config/logger');
 const handbookRoutes = require('./routes/handbook');
 const employeeRoutes = require('./routes/employee');
-
+require('dotenv').config({ path: path.join(__dirname, '../config.env') });
 async function connectToNetworkShare(config) {
     if (config.networkCredentials && config.networkCredentials.username) {
         try {
             const { exec } = require('child_process');
             const { promisify } = require('util');
             const execAsync = promisify(exec);
-            
+            const payslipsPath = config.payslipsPath;
             const username = config.networkCredentials.username;
             const password = config.networkCredentials.password;
             const domain = config.networkCredentials.domain;
-            const netUseCommand = `net use \\\\192.168.39.124\\payslips ${password} /user:${domain ? domain + '\\' : ''}${username}`;
+            const netUseCommand = `net use \\${payslipsPath} ${password} /user:${domain ? domain + '\\' : ''}${username}`;
             
             logger.info(`Attempting to connect to network share with credentials`);
             const { stdout, stderr } = await execAsync(netUseCommand);

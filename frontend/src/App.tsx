@@ -4,6 +4,7 @@ import LoginWindow from './components/LoginWindow';
 import EmployeeInfo from './components/EmployeeInfo';
 import GuestMode from './components/GuestMode';
 import PayslipViewer from './components/PayslipViewer';
+import config from './config.json';
 
 interface Employee {
     id: string;
@@ -26,11 +27,10 @@ function App() {
 
     const handleLogin = async (id: string) => {
         try {
-            // Если только цифры и длина 7 — это карта, иначе id
             const isCardUid = /^\d{7}$/.test(id);
             const url = isCardUid
-                ? `http://localhost:3001/api/employee/card/${id}`
-                : `http://localhost:3001/api/employee/${id}`;
+                ? `${config.backendUrl}/api/employee/card/${id}`
+                : `${config.backendUrl}/api/employee/${id}`;
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
@@ -68,13 +68,10 @@ function App() {
         setSelectedPeriod('');
     };
 
-    // Функция для получения URL расчётного листа
     const getPayslipUrl = (employee: Employee, period: string) => {
-        // Формируем имя файла: табельный_номер.pdf
         const fileName = `${employee.tnom}.pdf`;
-        
-        // Возвращаем URL для API
-        return `http://localhost:3001/api/payslip/${period}/${fileName}`;
+
+        return `${config.backendUrl}/api/payslip/${period}/${fileName}`;
     };
 
     return (

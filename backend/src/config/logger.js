@@ -3,9 +3,9 @@ const path = require('path');
 const fs = require('fs');
 const zlib = require('zlib');
 const cron = require('node-cron');
-
-const logDir = path.join(__dirname, '../../logs/');
-const logFile = path.join(logDir, 'app.log');
+require('dotenv').config({ path: path.join(__dirname, '../../config.env') });
+const logDir = path.join(__dirname, process.env.LOG_DIR);
+const logFile = path.join(logDir, process.env.LOG_FILE);
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });

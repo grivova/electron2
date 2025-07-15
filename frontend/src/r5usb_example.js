@@ -76,7 +76,7 @@ async function main() {
     const address = 0; 
 
     const initDevRes = rgsec.RG_InitDevice(endpoint.ref(), address);
-    console.log('После RG_InitDevice, код:', initDevRes);7301546
+    console.log('После RG_InitDevice, код:', initDevRes);
     
     if (initDevRes !== E_API_ERROR_CODES.EC_OK) {
       throw new Error(`RG_InitDevice failed: ${errorToString(initDevRes)}`);

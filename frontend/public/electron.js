@@ -8,6 +8,7 @@ const COM_SPEED = process.env.COM_SPEED;
 const { SerialPort } = require('serialport');
 const axios = require('axios');
 const { logger }  = require('../../backend/src/config/logger');
+const config = require('../src/config.json')
 protocol.registerSchemesAsPrivileged([
     {
         scheme: 'app',
@@ -76,7 +77,7 @@ function createWindow() {
 
     mainWindow.loadURL(
         isDev
-            ? 'http://localhost:3000'
+            ? `${config.frontUrl}`
             : `file://${path.join(__dirname, '../build/index.html')}`
     );
 
@@ -165,8 +166,7 @@ try {
                             uid: uid,
                             timestamp: Date.now()
                         });
-                        // Логгируем в admin-server
-                        axios.post('http://localhost:3005/api/card-event', {
+                        axios.post(`${config.adminUrl}}/api/card-event`, {
                             event: 'CARD_PLACED',
                             uid: uid,
                             timestamp: Date.now()

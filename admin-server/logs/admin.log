@@ -54,3 +54,25 @@
 [2025-07-15T05:27:47.286Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
 [2025-07-15T05:27:47.287Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
 [2025-07-15T05:28:37.739Z] [INFO] Login successful
+[2025-07-15T05:38:50.151Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T05:38:50.151Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T05:38:50.152Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T05:39:01.148Z] [INFO] Login successful
+[2025-07-15T05:39:10.987Z] [INFO] Good connect to Web-socket
+[2025-07-15T05:54:54.149Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T05:54:54.150Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T05:54:54.150Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T06:15:11.786Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T06:15:11.786Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T06:15:11.787Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T06:22:14.382Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T06:22:14.382Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T06:22:14.383Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T06:50:01.617Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T06:50:01.618Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T06:50:01.618Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T06:50:26.699Z] [INFO] Login successful
+[2025-07-15T06:55:27.910Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-15T06:55:27.911Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-15T06:55:27.911Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-15T06:55:50.182Z] [INFO] Login successful

@@ -18,8 +18,8 @@ const app = express();
 const PORT = process.env.PORT || 3005; 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SECRET_KEY = process.env.SECRET_KEY;
-const LOGS_DIR = path.join(__dirname, '../backend/logs');
-const CARD_LOG_PATH = path.join(LOGS_DIR, 'cards.log');
+const LOGS_DIR = path.join(__dirname, process.env.LOGS_DIR);
+const CARD_LOG_PATH = path.join(LOGS_DIR, process.env.CARD_LOG_PATH);
 const TEST_LOG_PATH = path.join(__dirname, 'logs', 'test.log'); 
 
 app.use(cors());
@@ -259,7 +259,7 @@ app.post('/api/config', async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    logger.info(`Admin server running on http://localhost:${PORT}`);
+    logger.info(`Admin server running on ${ADMIN_URL}:${PORT}`);
     logger.info(`Card logs path: ${CARD_LOG_PATH}`);
     logger.info(`Test logs path: ${TEST_LOG_PATH}`);
 });
