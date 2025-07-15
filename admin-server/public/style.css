@@ -22,7 +22,7 @@ h1 {
 #status {
     display: flex;
     align-items: center;
-    gap: 15px; /* Расстояние между статусом и кнопкой */
+    gap: 15px; 
 }
 
 #refresh-status-btn {

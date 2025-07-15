@@ -1,4 +1,4 @@
-const logger = require('../../backend/src/config/logger');
+const { logger } = require('../../backend/src/config/logger');
 logger.info('[Preload] Script started.');
 const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld(

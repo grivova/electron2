@@ -7,7 +7,7 @@ const COM_PORT = process.env.COM_PORT;
 const COM_SPEED = process.env.COM_SPEED;
 const { SerialPort } = require('serialport');
 const axios = require('axios');
-const logger = require('../../backend/src/config/logger');
+const { logger }  = require('../../backend/src/config/logger');
 protocol.registerSchemesAsPrivileged([
     {
         scheme: 'app',
