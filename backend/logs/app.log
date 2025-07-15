@@ -1,1 +1,64 @@
-{"level":"info","message":"Логи архивированы в app-2025_07_12.log.gz","service":"user-service","timestamp":"17:00:02 2025-07-12 "}
+{"level":"info","message":"Логи архивированы в app-2025_07_14.log.gz","service":"user-service","timestamp":"14:40:00 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"14:43:21 2025-07-14 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:43:23 2025-07-14 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:43:24 2025-07-14 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:43:24 2025-07-14 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:43:24 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"15:07:14 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"15:14:22 2025-07-14 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"15:31:49 2025-07-14 "}
+{"backendUrl":"http://localhost:3001","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"15:31:49 2025-07-14 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"15:31:50 2025-07-14 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:32:07 2025-07-14 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:32:08 2025-07-14 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:32:08 2025-07-14 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:32:08 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"15:44:06 2025-07-14 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"15:44:09 2025-07-14 "}
+{"backendUrl":"http://localhost:3001","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"15:44:09 2025-07-14 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"15:44:10 2025-07-14 "}
+{"level":"info","message":"Payslip request - Period: 012025, File: 23959.pdf","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"info","message":"Base path from config: \\192.168.39.248\\common\\payslips","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.248\\common\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.248\\common\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"15:45:28 2025-07-14 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"15:46:13 2025-07-14 "}
+{"backendUrl":"http://localhost:3001","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"15:46:13 2025-07-14 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"15:46:13 2025-07-14 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 23959.pdf","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"info","message":"Base path from config: \\192.168.39.248\\common\\payslips","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.248\\common\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.248\\common\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"15:46:23 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"15:47:00 2025-07-14 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"15:47:07 2025-07-14 "}
+{"backendUrl":"http://localhost:3001","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"15:47:07 2025-07-14 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"15:47:07 2025-07-14 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 23959.pdf","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"info","message":"Base path from config: \\192.168.39.248\\common\\payslips","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.248\\common\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.248\\common\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"15:47:22 2025-07-14 "}
+{"level":"info","message":"Payslip request - Period: 012025, File: 23959.pdf","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"info","message":"Base path from config: \\192.168.39.248\\common\\payslips","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.248\\common\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.248\\common\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"15:47:42 2025-07-14 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"08:27:16 2025-07-15 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"08:27:59 2025-07-15 "}
+{"backendUrl":"http://localhost:3001","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"08:27:59 2025-07-15 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"08:27:59 2025-07-15 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 15185.pdf","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"level":"info","message":"Base path from config: \\192.168.39.124\\С$\\payslips","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.124\\С$\\payslips\\072025\\15185.pdf","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.124\\С$\\payslips\\072025\\15185.pdf","service":"user-service","timestamp":"08:28:08 2025-07-15 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:28:12 2025-07-15 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:28:12 2025-07-15 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:28:12 2025-07-15 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:28:12 2025-07-15 "}

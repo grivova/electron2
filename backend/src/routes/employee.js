@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { sql } = require('../config/db');
-const logger = require('../config/logger_cards');
+const { logger } = require('../config/logger_cards');
 
 // Поиск по номеру карты
 router.get('/card/:cardNumber', async (req, res) => {

@@ -1,6 +1,6 @@
 const sql = require('mssql');
 const path = require('path');
-const logger = require('./logger');
+const { logger } = require('./logger');
 require('dotenv').config({ path: path.join(__dirname, '../../config.env') });
 
 const config = {

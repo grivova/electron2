@@ -4,7 +4,7 @@ const cors = require('cors');
 const { connectDB } = require('./config/db');
 const employeeRoutes = require('./routes/employee');
 const handbookRoutes = require('./routes/handbook');
-const logger = require('./config/logger');
+const { logger } = require('./config/logger');
 const app = express();
 const PORT = process.env.PORT || 3001;
 

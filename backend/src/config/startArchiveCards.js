@@ -1,5 +1,4 @@
 const { archiveLog } = require('./logger_cards');
-
 try {
   archiveLog();
   console.log('Архивация запущена');

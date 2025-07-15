@@ -3,15 +3,13 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs-extra');
 const { connectDB, sql } = require('./config/db');
-const logger = require('./config/logger');
+const { logger } = require('./config/logger');
 const handbookRoutes = require('./routes/handbook');
 const employeeRoutes = require('./routes/employee');
 
-// Функция для подключения к сетевому ресурсу с аутентификацией
 async function connectToNetworkShare(config) {
     if (config.networkCredentials && config.networkCredentials.username) {
         try {
-            // Для Windows можно использовать net use для подключения сетевого диска
             const { exec } = require('child_process');
             const { promisify } = require('util');
             const execAsync = promisify(exec);
@@ -19,8 +17,6 @@ async function connectToNetworkShare(config) {
             const username = config.networkCredentials.username;
             const password = config.networkCredentials.password;
             const domain = config.networkCredentials.domain;
-            
-            // Формируем команду для подключения сетевого диска
             const netUseCommand = `net use \\\\192.168.39.124\\payslips ${password} /user:${domain ? domain + '\\' : ''}${username}`;
             
             logger.info(`Attempting to connect to network share with credentials`);
@@ -37,7 +33,7 @@ async function connectToNetworkShare(config) {
             return false;
         }
     }
-    return true; // Если нет учетных данных, пробуем без аутентификации
+    return true; 
 }
 
 const app = express();
@@ -49,7 +45,6 @@ app.get('/api/test', (req, res) => {
     res.json({ message: 'API работает' });
 });
 
-// Endpoint для тестирования подключения к серверу с расчётными листами
 app.get('/api/test-network', async (req, res) => {
     try {
         const configPath = path.join(__dirname, '../config.json');
@@ -58,7 +53,6 @@ app.get('/api/test-network', async (req, res) => {
 
         logger.info(`Testing network connection to: ${payslipBasePath}`);
 
-        // Пытаемся подключиться к сетевому ресурсу
         const networkConnected = await connectToNetworkShare(config);
         logger.info(`Network share connection successful: ${networkConnected}`);
 
@@ -72,18 +66,15 @@ app.get('/api/test-network', async (req, res) => {
         };
 
         try {
-            // Проверяем существование базовой папки
             testResults.basePathExists = await fs.pathExists(payslipBasePath);
             logger.info(`Base path exists: ${testResults.basePathExists}`);
 
             if (testResults.basePathExists) {
-                // Проверяем доступность папки
                 const stats = await fs.stat(payslipBasePath);
                 testResults.basePathAccessible = stats.isDirectory();
                 logger.info(`Base path is directory: ${testResults.basePathAccessible}`);
 
                 if (testResults.basePathAccessible) {
-                    // Получаем содержимое папки
                     testResults.basePathContents = await fs.readdir(payslipBasePath);
                     logger.info(`Base path contents: ${JSON.stringify(testResults.basePathContents)}`);
                 }
@@ -110,11 +101,9 @@ app.get('/api/payslip/:period/:fileName', async (req, res) => {
         logger.info(`Payslip request - Period: ${period}, File: ${fileName}`);
         logger.info(`Base path from config: ${payslipBasePath}`);
 
-        // Пытаемся подключиться к сетевому ресурсу
         const networkConnected = await connectToNetworkShare(config);
         logger.info(`Network share connection for payslip: ${networkConnected}`);
 
-        // Формируем путь: basePath/period/fileName
         let finalPayslipPath;
         if (path.isAbsolute(payslipBasePath)) {
             finalPayslipPath = path.join(payslipBasePath, period, fileName);
@@ -125,7 +114,6 @@ app.get('/api/payslip/:period/:fileName', async (req, res) => {
         
         logger.info(`Final payslip path: ${finalPayslipPath}`);
 
-        // Проверяем доступность базовой папки
         try {
             const basePathExists = await fs.pathExists(payslipBasePath);
             logger.info(`Base path exists: ${basePathExists}`);
@@ -137,12 +125,10 @@ app.get('/api/payslip/:period/:fileName', async (req, res) => {
                     permissions: basePathStats.mode,
                     size: basePathStats.size
                 })}`);
-                
-                // Проверяем содержимое базовой папки
+
                 const basePathContents = await fs.readdir(payslipBasePath);
                 logger.info(`Base path contents: ${JSON.stringify(basePathContents)}`);
-                
-                // Проверяем папку периода
+
                 const periodPath = path.join(payslipBasePath, period);
                 const periodPathExists = await fs.pathExists(periodPath);
                 logger.info(`Period path exists: ${periodPathExists} (${periodPath})`);
@@ -179,7 +165,6 @@ app.get('/api/payslip/:period/:fileName', async (req, res) => {
     }
 });
 
-// Оставляем старый endpoint для обратной совместимости
 app.get('/api/payslip/:fileName', async (req, res) => {
     try {
         const { fileName } = req.params;

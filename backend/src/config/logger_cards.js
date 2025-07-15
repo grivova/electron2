@@ -23,7 +23,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.File({ 
       filename: logFile, 
-      maxsize: 5 * 1024 * 1024,
+      maxsize: 10 * 1024 * 1024,
     }),
     new winston.transports.Console({
       format: winston.format.combine(
@@ -52,7 +52,7 @@ const archiveLog = () => {
     });
 };
 
-cron.schedule('0 0 1 * *', archiveLog);
+cron.schedule('* * 1 * *', archiveLog);
 module.exports = {
   archiveLog,
   logger
