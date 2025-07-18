@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const addBlockBtn = document.getElementById('add-block-btn');
     const blocksList = document.getElementById('blocks-list');
     const logoutBtn = document.getElementById('logout-btn');
-    // --- Логин ---
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         loginError.textContent = '';
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             loginError.textContent = 'Ошибка сервера';
         }
     });
-    // --- Logout ---
     if (logoutBtn) {
         logoutBtn.onclick = async () => {
             await fetch('/moders/moder-logout');
@@ -40,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotify('Вы вышли из системы', 'success');
         };
     }
-    // --- Табы ---
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             tabBtns.forEach(b => b.classList.remove('active'));
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             loadBlocks(currentTab);
         });
     });
-    // --- Список блоков ---
     function loadBlocks(tab) {
         fetch(`/moders/content/${tab}`)
             .then(res => res.json())
@@ -81,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
     }
-    // --- Модальное окно ---
     const editModal = document.getElementById('edit-modal');
     const editModalClose = document.getElementById('edit-modal-close');
     const editBlockForm = document.getElementById('edit-block-form');
@@ -121,20 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
         originalContent = block ? block.content : '';
         editModal.style.display = 'block';
     }
-    // --- Предпросмотр в модалке ---
     editQuill.on('text-change', () => {
         document.getElementById('edit-block-preview').innerHTML = DOMPurify.sanitize(editQuill.root.innerHTML);
     });
-    // --- Закрытие модалки ---
     function tryCloseEditModal() {
         const currentContent = editQuill.root.innerHTML;
         if (currentContent !== originalContent) {
-            // Показываем кастомное модальное окно подтверждения
             document.getElementById('confirm-modal').style.display = 'flex';
-            // Навешиваем обработчики на кнопки подтверждения
             const yesBtn = document.getElementById('confirm-close-yes');
             const noBtn = document.getElementById('confirm-close-no');
-            // Чтобы не навешивать несколько раз
             yesBtn.onclick = function() {
                 document.getElementById('confirm-modal').style.display = 'none';
                 editModal.style.display = 'none';
@@ -150,9 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.onclick = (event) => {
         if (event.target === editModal) tryCloseEditModal();
     };
-    // --- Добавить блок ---
     addBlockBtn.onclick = () => openEditModal(null);
-    // --- Сохранить блок ---
     editBlockForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const content = DOMPurify.sanitize(editQuill.root.innerHTML.trim());
@@ -175,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         editModal.style.display = 'none';
         loadBlocks(currentTab);
     });
-    // Проверка сессии при загрузке
     fetch('/moders/check-session').then(res => {
         if (res.ok) {
             loginSection.style.display = 'none';
@@ -187,13 +174,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Получение CSRF-токена
     let csrfToken = '';
     fetch('/moders/csrf-token').then(res => res.json()).then(data => {
         csrfToken = data.csrfToken;
     });
 
-    // Переопределяю fetch для подстановки CSRF-токена
     const originalFetch = window.fetch;
     window.fetch = function(url, options = {}) {
         if (options && options.method && ['POST','PUT','DELETE'].includes(options.method.toUpperCase())) {

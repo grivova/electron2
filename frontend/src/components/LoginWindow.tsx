@@ -75,6 +75,7 @@ const LoginWindow: React.FC<LoginWindowProps> = ({ onLogin, onGuestMode, loginEr
                         value={id}
                         onChange={(e) => setId(e.target.value)}
                         placeholder=" "
+                        autoFocus
                     />
                 </div>
                 {loginError && <div className="error" style={{ color: 'red', marginTop: 8 }}>{loginError}</div>}

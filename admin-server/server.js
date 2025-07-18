@@ -34,7 +34,6 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Разрешаем запросы без Origin (например, curl, Postman)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
@@ -86,8 +85,6 @@ app.use((err, req, res, next) => {
 
 app.use('/moders', moderAuthRouter);
 app.use('/moders/content', contentRouter);
-
-// Проверка и создание папки для логов
 if (!fs.existsSync(LOGS_DIR)) {
     try {
         fs.mkdirSync(LOGS_DIR, { recursive: true });
