@@ -1,7 +1,3 @@
 {
-    "payslipsPath": "\\\\PC-20081\\payslips",
-    "server": {
-        "host": "0.0.0.0",
-        "port": 3001
-    }
+    "payslipsPath": "\\\\PC-20081\\payslips"
 }

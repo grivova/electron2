@@ -7,68 +7,78 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="toast-container"></div>
     <div class="container">
         <h1>Панель администратора</h1>
-        <div id="status">
-            <p>Статус сервера: <span id="server-status">загрузка...</span></p>
-            <button id="refresh-status-btn" class="btn-small">Обновить</button>
+        <div class="tabs">
+            <button id="tab-main" class="tab-btn active">Общее</button>
+            <button id="tab-settings" class="tab-btn">Настройки</button>
         </div>
-
-        <div id="db-status-container">
-            <div>
-                <p>Админ -> БД: <span id="admin-db-status">неизвестно</span></p>
-                <small id="admin-db-message"></small>
+        <div id="main-tab">
+            <div id="status">
+                <p>Статус сервера: <span id="server-status">загрузка...</span></p>
+                <button id="refresh-status-btn" class="btn-small">Обновить</button>
             </div>
-            <div>
-                <p>Программа -> БД: <span id="backend-db-status">неизвестно</span></p>
-                <small id="backend-db-message"></small>
-            </div>
-            <button id="check-db-btn" class="btn-small">Проверить</button>
-        </div>
 
-        <div class="network-diag-container">
-            <h2>Сетевая диагностика (Ping)</h2>
-            <div class="ping-controls">
-                <input type="text" id="ping-ip" placeholder="Введите IP-адрес или хост">
-                <button id="ping-btn" class="btn-small">Пинг</button>
-                <button id="ping-stop-btn" class="btn-small" disabled>Стоп</button>
-                <button id="ping-clear-btn" class="btn-small">Очистить</button>
-            </div>
-            <pre id="ping-output"></pre>
-        </div>
-
-        <div class="logs-container">
-            <h2>Логи приложения</h2>
-            <div class="log-controls">
-                <button id="refresh-logs-btn" class="btn-small">Обновить логи</button>
-                <button id="clear-logs-btn" class="btn-small">Очистить</button>
-            </div>
-            <pre id="logs-content">Нажмите "Обновить логи" для просмотра</pre>
-        </div>
-
-        <div class="logs-container">
-            <h2>Логи считывателя</h2>
-            <div class="log-controls">
-                <button id="refresh-card-logs-btn" class="btn-small">Обновить логи считывателя</button>
-            </div>
-            <pre id="ping-output">
-            <pre id="card-logs-content">Нажмите "Обновить логи считывателя" для просмотра</pre>
-            </pre></pre>
-        </div>
-
-        <div class="config-container">
-            <h2>Конфигурация</h2>
-            <form id="config-form">
-                <div class="form-group">
-                    <label for="payslipsPath">Путь к расчетным листкам:</label>
-                    <div class="input-with-button">
-                        <input type="text" id="payslipsPath" name="payslipsPath" required>
-                        <button type="button" id="browse-btn">Обзор...</button>
-                    </div>
+            <div id="db-status-container">
+                <div>
+                    <p>Админ -> БД: <span id="admin-db-status">неизвестно</span></p>
+                    <small id="admin-db-message"></small>
                 </div>
-                <button type="submit">Сохранить</button>
-            </form>
-            <p id="config-status"></p>
+                <div>
+                    <p>Программа -> БД: <span id="backend-db-status">неизвестно</span></p>
+                    <small id="backend-db-message"></small>
+                </div>
+                <button id="check-db-btn" class="btn-small">Проверить</button>
+            </div>
+
+            <div class="network-diag-container">
+                <h2>Сетевая диагностика (Ping)</h2>
+                <div class="ping-controls">
+                    <input type="text" id="ping-ip" placeholder="Введите IP-адрес или хост">
+                    <button id="ping-btn" class="btn-small">Пинг</button>
+                    <button id="ping-stop-btn" class="btn-small" disabled>Стоп</button>
+                    <button id="ping-clear-btn" class="btn-small">Очистить</button>
+                </div>
+                <pre id="ping-output"></pre>
+            </div>
+
+            <div class="logs-container">
+                <h2>Логи приложения</h2>
+                <div class="log-controls">
+                    <button id="refresh-logs-btn" class="btn-small">Обновить логи</button>
+                    <button id="clear-logs-btn" class="btn-small">Очистить</button>
+                </div>
+                <pre id="logs-content">Нажмите "Обновить логи" для просмотра</pre>
+            </div>
+
+            <div class="logs-container">
+                <h2>Логи считывателя</h2>
+                <div class="log-controls">
+                    <button id="refresh-card-logs-btn" class="btn-small">Обновить логи считывателя</button>
+                </div>
+                <pre id="ping-output">
+                <pre id="card-logs-content">Нажмите "Обновить логи считывателя" для просмотра</pre>
+                </pre></pre>
+            </div>
+
+            <div class="config-container">
+                <h2>Конфигурация</h2>
+                <form id="config-form">
+                    <div class="form-group">
+                        <label for="payslipsPath">Путь к расчетным листкам:</label>
+                        <div class="input-with-button">
+                            <input type="text" id="payslipsPath" name="payslipsPath" required>
+                            <button type="button" id="browse-btn">Обзор...</button>
+                        </div>
+                    </div>
+                    <button type="submit">Сохранить</button>
+                </form>
+                <p id="config-status"></p>
+            </div>
+        </div>
+        <div id="settings-tab" style="display:none">
+            <!-- Здесь будут формы для управления настройками -->
         </div>
     </div>
     <script src="app.js"></script>

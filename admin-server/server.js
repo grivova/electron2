@@ -18,6 +18,8 @@ require('dotenv').config({ path: __dirname + '/moders/config.env' });
 const logger  = require('./logger');
 const moderAuthRouter = require('./moders/routes/moderAuth');
 const contentRouter = require('./moders/routes/content');
+const moderDb = require('./moders/db');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = process.env.PORT || 3005; 
@@ -28,7 +30,7 @@ const CARD_LOG_PATH = path.join(LOGS_DIR, process.env.CARD_LOG_PATH);
 const TEST_LOG_PATH = path.join(__dirname, 'logs', 'test.log'); 
 const ADMIN_URL = process.env.ADMIN_URL;
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
+const allowedOrigins = (process.env.ALLOWED_ORIGINS)
   .split(',')
   .map(origin => origin.trim());
 
@@ -70,9 +72,19 @@ const csrfProtection = csurf({ cookie: false });
 
 app.post('/moders/moder-login', moderAuthRouter.stack.find(r => r.route && r.route.path === '/moder-login' && r.route.methods.post).route.stack[0].handle);
 
-app.use(csrfProtection);
+// Глобальный csurf — исключаем только /login и /moders/moder-login
+app.use((req, res, next) => {
+  if (
+    req.path === '/login' ||
+    req.path === '/moders/moder-login'
+  ) {
+    return next();
+  }
+  return csrfProtection(req, res, next);
+});
 
-app.get('/moders/csrf-token', (req, res) => {
+// Для выдачи токена — отдельный csurf middleware
+app.get('/moders/csrf-token', csrfProtection, (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
@@ -102,6 +114,48 @@ const checkAuth = (req, res, next) => {
         res.status(401).send('Unauthorized');
     }
 };
+
+const parseEnv = async (filePath) => {
+  const content = await fs.readFile(filePath, 'utf-8');
+  const lines = content.split(/\r?\n/);
+  const result = {};
+  for (const line of lines) {
+    if (!line.trim() || line.trim().startsWith('#')) continue;
+    const idx = line.indexOf('=');
+    if (idx === -1) continue;
+    const key = line.slice(0, idx).trim();
+    const value = line.slice(idx + 1).trim();
+    result[key] = value;
+  }
+  return result;
+};
+
+const updateEnv = async (filePath, updates) => {
+  const content = await fs.readFile(filePath, 'utf-8');
+  const lines = content.split(/\r?\n/);
+  const keys = Object.keys(updates);
+  const updated = new Set();
+  const newLines = lines.map(line => {
+    if (!line.trim() || line.trim().startsWith('#') || !line.includes('=')) return line;
+    const idx = line.indexOf('=');
+    const key = line.slice(0, idx).trim();
+    if (keys.includes(key)) {
+      updated.add(key);
+      return `${key}=${updates[key]}`;
+    }
+    return line;
+  });
+  // Добавить новые ключи, если их не было
+  for (const key of keys) {
+    if (!updated.has(key)) {
+      newLines.push(`${key}=${updates[key]}`);
+    }
+  }
+  await fs.writeFile(filePath, newLines.join('\n'), 'utf-8');
+};
+
+const configEnvPath = path.join(__dirname, 'config.env');
+const modersEnvPath = path.join(__dirname, 'moders', 'config.env');
 
 // Маршруты
 app.post('/login', (req, res) => {
@@ -308,6 +362,220 @@ app.post('/api/config', async (req, res) => {
         logger.error('Error writing config file:', error);
         res.status(500).json({ message: 'Could not write config file.' });
     }
+});
+
+// Получить параметры MS SQL
+app.get('/api/settings/mssql', checkAuth, async (req, res) => {
+  try {
+    const env = await parseEnv(configEnvPath);
+    res.json({
+      DB_USER: env.DB_USER || '',
+      DB_PASSWORD: env.DB_PASSWORD || '',
+      DB_SERVER: env.DB_SERVER || '',
+      DB_NAME: env.DB_NAME || ''
+    });
+  } catch (e) {
+    logger.error('Ошибка чтения config.env:', e);
+    res.status(500).json({ message: 'Ошибка чтения config.env' });
+  }
+});
+// Обновить параметры MS SQL
+app.post('/api/settings/mssql', checkAuth, async (req, res) => {
+  const { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME } = req.body;
+  if (!DB_USER || !DB_PASSWORD || !DB_SERVER || !DB_NAME) {
+    return res.status(400).json({ message: 'Все поля обязательны' });
+  }
+  try {
+    await updateEnv(configEnvPath, { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME });
+    res.json({ message: 'Параметры MS SQL обновлены' });
+  } catch (e) {
+    logger.error('Ошибка записи config.env:', e);
+    res.status(500).json({ message: 'Ошибка записи config.env' });
+  }
+});
+// Получить параметры MySQL
+app.get('/api/settings/mysql', checkAuth, async (req, res) => {
+  try {
+    const env = await parseEnv(modersEnvPath);
+    res.json({
+      MYSQL_HOST: env.MYSQL_HOST || '',
+      MYSQL_PORT: env.MYSQL_PORT || '',
+      MYSQL_USER: env.MYSQL_USER || '',
+      MYSQL_PASSWORD: env.MYSQL_PASSWORD || '',
+      MYSQL_DATABASE: env.MYSQL_DATABASE || ''
+    });
+  } catch (e) {
+    logger.error('Ошибка чтения moders/config.env:', e);
+    res.status(500).json({ message: 'Ошибка чтения moders/config.env' });
+  }
+});
+// Обновить параметры MySQL
+app.post('/api/settings/mysql', checkAuth, async (req, res) => {
+  const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = req.body;
+  if (!MYSQL_HOST || !MYSQL_PORT || !MYSQL_USER || !MYSQL_PASSWORD || !MYSQL_DATABASE) {
+    return res.status(400).json({ message: 'Все поля обязательны' });
+  }
+  try {
+    await updateEnv(modersEnvPath, { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE });
+    res.json({ message: 'Параметры MySQL обновлены' });
+  } catch (e) {
+    logger.error('Ошибка записи moders/config.env:', e);
+    res.status(500).json({ message: 'Ошибка записи moders/config.env' });
+  }
+});
+
+// --- CORS SETTINGS API ---
+// Получить ALLOWED_ORIGINS
+app.get('/api/settings/cors', checkAuth, async (req, res) => {
+  try {
+    const env = await parseEnv(configEnvPath);
+    const origins = (env.ALLOWED_ORIGINS || '').split(',').map(o => o.trim()).filter(Boolean);
+    res.json({ ALLOWED_ORIGINS: origins });
+  } catch (e) {
+    logger.error('Ошибка чтения ALLOWED_ORIGINS:', e);
+    res.status(500).json({ message: 'Ошибка чтения ALLOWED_ORIGINS' });
+  }
+});
+// Обновить ALLOWED_ORIGINS
+app.post('/api/settings/cors', checkAuth, async (req, res) => {
+  const { ALLOWED_ORIGINS } = req.body;
+  if (!Array.isArray(ALLOWED_ORIGINS) || !ALLOWED_ORIGINS.length) {
+    return res.status(400).json({ message: 'Список ALLOWED_ORIGINS обязателен' });
+  }
+  try {
+    await updateEnv(configEnvPath, { ALLOWED_ORIGINS: ALLOWED_ORIGINS.join(', ') });
+    res.json({ message: 'ALLOWED_ORIGINS обновлён' });
+  } catch (e) {
+    logger.error('Ошибка записи ALLOWED_ORIGINS:', e);
+    res.status(500).json({ message: 'Ошибка записи ALLOWED_ORIGINS' });
+  }
+});
+
+// --- ADMIN-SERVER PARAMS API ---
+// Получить PORT и ADMIN_URL
+app.get('/api/settings/admin-server', checkAuth, async (req, res) => {
+  try {
+    const env = await parseEnv(configEnvPath);
+    res.json({
+      PORT: env.PORT || '',
+      ADMIN_URL: env.ADMIN_URL || ''
+    });
+  } catch (e) {
+    logger.error('Ошибка чтения config.env (admin-server):', e);
+    res.status(500).json({ message: 'Ошибка чтения config.env' });
+  }
+});
+// Обновить PORT и ADMIN_URL
+app.post('/api/settings/admin-server', checkAuth, async (req, res) => {
+  const { PORT, ADMIN_URL } = req.body;
+  if (!PORT || !ADMIN_URL) {
+    return res.status(400).json({ message: 'PORT и ADMIN_URL обязательны' });
+  }
+  try {
+    await updateEnv(configEnvPath, { PORT, ADMIN_URL });
+    res.json({ message: 'Параметры admin-server обновлены' });
+  } catch (e) {
+    logger.error('Ошибка записи config.env (admin-server):', e);
+    res.status(500).json({ message: 'Ошибка записи config.env' });
+  }
+});
+
+// --- BACKEND SERVER PARAMS API ---
+const backendConfigPath = path.join(__dirname, '../backend/config.json');
+// Получить host/port backend
+app.get('/api/settings/backend-server', checkAuth, async (req, res) => {
+  try {
+    const config = await fs.readJson(backendConfigPath);
+    res.json({
+      host: config.server?.host || '',
+      port: config.server?.port || ''
+    });
+  } catch (e) {
+    logger.error('Ошибка чтения backend/config.json:', e);
+    res.status(500).json({ message: 'Ошибка чтения backend/config.json' });
+  }
+});
+// Обновить host/port backend
+app.post('/api/settings/backend-server', checkAuth, async (req, res) => {
+  const { host, port } = req.body;
+  if (!host || !port) {
+    return res.status(400).json({ message: 'host и port обязательны' });
+  }
+  try {
+    const config = await fs.readJson(backendConfigPath);
+    config.server = config.server || {};
+    config.server.host = host;
+    config.server.port = port;
+    await fs.writeJson(backendConfigPath, config, { spaces: 4 });
+    res.json({ message: 'Параметры backend-server обновлены' });
+  } catch (e) {
+    logger.error('Ошибка записи backend/config.json:', e);
+    res.status(500).json({ message: 'Ошибка записи backend/config.json' });
+  }
+});
+
+// --- MODERATORS MANAGEMENT API ---
+// Получить список модераторов
+app.get('/api/settings/moders', checkAuth, async (req, res) => {
+  try {
+    const [rows] = await moderDb.query('SELECT id, username FROM users ORDER BY id ASC');
+    res.json(rows);
+  } catch (e) {
+    logger.error('Ошибка получения списка модераторов:', e);
+    res.status(500).json({ message: 'Ошибка получения списка модераторов' });
+  }
+});
+// Добавить модератора
+app.post('/api/settings/moders', checkAuth, async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: 'username и password обязательны' });
+  }
+  try {
+    const [exists] = await moderDb.query('SELECT id FROM users WHERE username = ?', [username]);
+    if (exists.length) {
+      return res.status(409).json({ message: 'Пользователь с таким username уже существует' });
+    }
+    const hash = await bcrypt.hash(password, 10);
+    const [result] = await moderDb.query('INSERT INTO users (username, password_hash) VALUES (?, ?)', [username, hash]);
+    res.json({ id: result.insertId, username });
+  } catch (e) {
+    logger.error('Ошибка добавления модератора:', e);
+    res.status(500).json({ message: 'Ошибка добавления модератора' });
+  }
+});
+// Сменить пароль модератора
+app.put('/api/settings/moders/:id', checkAuth, async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  if (!password) {
+    return res.status(400).json({ message: 'password обязателен' });
+  }
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    const [result] = await moderDb.query('UPDATE users SET password_hash = ? WHERE id = ?', [hash, id]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Модератор не найден' });
+    }
+    res.json({ message: 'Пароль обновлён' });
+  } catch (e) {
+    logger.error('Ошибка смены пароля модератора:', e);
+    res.status(500).json({ message: 'Ошибка смены пароля модератора' });
+  }
+});
+// Удалить модератора
+app.delete('/api/settings/moders/:id', checkAuth, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await moderDb.query('DELETE FROM users WHERE id = ?', [id]);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Модератор не найден' });
+    }
+    res.json({ message: 'Модератор удалён' });
+  } catch (e) {
+    logger.error('Ошибка удаления модератора:', e);
+    res.status(500).json({ message: 'Ошибка удаления модератора' });
+  }
 });
 
 server.listen(PORT, () => {

@@ -536,3 +536,66 @@
 [2025-07-18T05:38:19.658Z] [INFO] [LOGIN] Результат сравнения пароля: true
 [2025-07-18T05:38:19.659Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":1,"username":"vova"}
 [2025-07-18T05:38:19.660Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-18T08:45:38.236Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T08:45:38.237Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T08:45:38.237Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T08:45:55.439Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-18T08:45:55.439Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-18T08:45:55.458Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-18T08:45:55.459Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-18T08:45:55.508Z] [INFO] [LOGIN] Результат сравнения пароля: true
+[2025-07-18T08:45:55.508Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":1,"username":"vova"}
+[2025-07-18T08:45:55.509Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-18T08:55:57.081Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T08:55:57.081Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T08:55:57.082Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T08:56:47.333Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T08:56:47.334Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T08:56:47.335Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T08:57:11.361Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T08:57:11.362Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T08:57:11.362Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T09:00:48.091Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T09:00:48.092Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T09:00:48.093Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T09:00:52.419Z] [INFO] Login successful
+[2025-07-18T09:01:25.584Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-18T09:01:25.584Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-18T09:01:25.594Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-18T09:01:25.594Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-18T09:01:25.646Z] [INFO] [LOGIN] Результат сравнения пароля: true
+[2025-07-18T09:01:25.647Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":1,"username":"vova"}
+[2025-07-18T09:01:25.648Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-18T09:46:13.116Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T09:46:13.117Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T09:46:13.117Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T09:46:23.938Z] [INFO] Login successful
+[2025-07-18T09:58:23.656Z] [INFO] Login successful
+[2025-07-18T10:13:49.104Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T10:13:49.105Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T10:13:49.105Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T10:13:57.804Z] [INFO] Login successful
+[2025-07-18T10:16:03.740Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T10:16:03.740Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T10:16:03.741Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T10:16:09.258Z] [INFO] Login successful
+[2025-07-18T10:16:45.861Z] [INFO] [LOGIN] Попытка входа: test
+[2025-07-18T10:16:45.861Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-18T10:16:45.863Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-18T10:16:45.864Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-18T10:16:45.915Z] [INFO] [LOGIN] Результат сравнения пароля: true
+[2025-07-18T10:16:45.915Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":2,"username":"test"}
+[2025-07-18T10:16:45.916Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-18T10:17:08.948Z] [INFO] Login successful
+[2025-07-18T10:28:57.930Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T10:28:57.931Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T10:28:57.931Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T10:29:04.485Z] [INFO] Login successful
+[2025-07-18T10:29:20.080Z] [INFO] Login successful
+[2025-07-18T11:12:16.575Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T11:12:16.576Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T11:12:16.576Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T11:12:20.350Z] [INFO] Login successful
+[2025-07-18T11:17:55.739Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T11:17:55.739Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T11:17:55.740Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log

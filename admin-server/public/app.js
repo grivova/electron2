@@ -91,31 +91,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    configForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newConfig = {
-            payslipsPath: payslipsPathInput.value
-        };
+configForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newConfig = {
+        payslipsPath: payslipsPathInput.value
+    };
 
-        fetch('/api/config', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newConfig)
-        })
-        .then(response => response.json())
-        .then(data => {
-            configStatus.textContent = 'Конфигурация успешно сохранена!';
-            configStatus.style.color = 'green';
-            setTimeout(() => { configStatus.textContent = ''; }, 3000);
-        })
-        .catch(err => {
-            console.error('Ошибка при сохранении конфигурации:', err);
-            configStatus.textContent = 'Ошибка при сохранении.';
-            configStatus.style.color = 'red';
-        });
+    apiFetch('/api/config', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newConfig)
+    })
+    .then(response => response.json())
+    .then(data => {
+        configStatus.textContent = 'Конфигурация успешно сохранена!';
+        configStatus.style.color = 'green';
+        setTimeout(() => { configStatus.textContent = ''; }, 3000);
+    })
+    .catch(err => {
+        console.error('Ошибка при сохранении конфигурации:', err);
+        configStatus.textContent = 'Ошибка при сохранении.';
+        configStatus.style.color = 'red';
     });
+});
     browseBtn.addEventListener('click', async () => {
         try {
             const response = await fetch('/api/browse');
@@ -257,6 +257,447 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
     refreshCardLogsBtn.addEventListener('click', fetchCardLogs);
+
+    // --- ТАБЫ ---
+    const tabMainBtn = document.getElementById('tab-main');
+    const tabSettingsBtn = document.getElementById('tab-settings');
+    const mainTab = document.getElementById('main-tab');
+    const settingsTab = document.getElementById('settings-tab');
+
+    function showTab(tab) {
+        if (tab === 'main') {
+            mainTab.style.display = '';
+            settingsTab.style.display = 'none';
+            tabMainBtn.classList.add('active');
+            tabSettingsBtn.classList.remove('active');
+        } else {
+            mainTab.style.display = 'none';
+            settingsTab.style.display = '';
+            tabMainBtn.classList.remove('active');
+            tabSettingsBtn.classList.add('active');
+            initSettingsTab();
+        }
+    }
+    tabMainBtn.addEventListener('click', () => showTab('main'));
+    tabSettingsBtn.addEventListener('click', () => showTab('settings'));
+
+    // --- TOAST ---
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast toast-' + type;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => container.removeChild(toast), 300);
+        }, 3000);
+    }
+
+    // --- CSRF TOKEN ---
+    let csrfToken = null;
+    async function fetchCsrfToken() {
+        try {
+            const res = await fetch('/moders/csrf-token', { credentials: 'include' });
+            if (res.ok) {
+                const data = await res.json();
+                csrfToken = data.csrfToken;
+            }
+        } catch (e) { csrfToken = null; }
+    }
+    // Обёртка для fetch с CSRF и credentials
+    async function apiFetch(url, options = {}) {
+        if (!options.headers) options.headers = {};
+        if (['POST','PUT','DELETE'].includes((options.method||'GET').toUpperCase())) {
+            if (!csrfToken) await fetchCsrfToken();
+            options.headers['X-CSRF-Token'] = csrfToken;
+        }
+        options.credentials = 'include';
+        return fetch(url, options);
+    }
+
+    // --- НАСТРОЙКИ: инициализация вкладки ---
+    async function initSettingsTab() {
+        settingsTab.innerHTML = '<h2>Настройки</h2>' +
+          '<div id="server-params-section"><h3>Параметры серверов</h3>' +
+          '<form id="server-params-form" novalidate>' +
+            '<fieldset><legend>Admin-server</legend>' +
+                '<label>PORT: <input type="number" id="admin-port" min="1" max="65535" required></label><br>' +
+                '<label>ADMIN_URL: <input type="text" id="admin-url" pattern="https?://.+" required></label>' +
+            '</fieldset>' +
+            '<fieldset><legend>Backend</legend>' +
+                '<label>host: <input type="text" id="backend-host" required></label><br>' +
+                '<label>port: <input type="number" id="backend-port" min="1" max="65535" required></label>' +
+            '</fieldset>' +
+            '<button type="submit">Сохранить</button>' +
+            '<span id="server-params-status" class="form-error"></span>' +
+          '</form></div>' +
+          '<div id="db-section"><h3>Подключения к БД</h3>' +
+            '<form id="mssql-form" novalidate><fieldset><legend>MS SQL</legend>' +
+              '<label>DB_USER: <input type="text" id="mssql-user" required></label><br>' +
+              '<label>DB_PASSWORD: <input type="password" id="mssql-pass" minlength="4" required></label><br>' +
+              '<label>DB_SERVER: <input type="text" id="mssql-server" required></label><br>' +
+              '<label>DB_NAME: <input type="text" id="mssql-db" required></label><br>' +
+              '<button type="submit">Сохранить</button>' +
+              '<span id="mssql-status" class="form-error"></span>' +
+            '</fieldset></form>' +
+            '<form id="mysql-form" novalidate><fieldset><legend>MySQL (модераторы)</legend>' +
+              '<label>MYSQL_HOST: <input type="text" id="mysql-host" required></label><br>' +
+              '<label>MYSQL_PORT: <input type="number" id="mysql-port" min="1" max="65535" required></label><br>' +
+              '<label>MYSQL_USER: <input type="text" id="mysql-user" required></label><br>' +
+              '<label>MYSQL_PASSWORD: <input type="password" id="mysql-pass" minlength="4" required></label><br>' +
+              '<label>MYSQL_DATABASE: <input type="text" id="mysql-db" required></label><br>' +
+              '<button type="submit">Сохранить</button>' +
+              '<span id="mysql-status" class="form-error"></span>' +
+            '</fieldset></form>' +
+          '</div>' +
+          '<div id="cors-section"><h3>CORS (ALLOWED_ORIGINS)</h3>' +
+            '<form id="cors-form">' +
+              '<ul id="cors-list"></ul>' +
+              '<input type="text" id="cors-new-origin" placeholder="Добавить origin...">' +
+              '<button type="button" id="cors-add-btn" disabled>Добавить</button>' +
+              '<button type="submit">Сохранить</button>' +
+              '<span id="cors-status" class="form-error"></span>' +
+            '</form>' +
+          '</div>' +
+          '<div id="moders-section"><h3>Модераторы</h3>' +
+            '<form id="add-moder-form" novalidate>' +
+              '<input type="text" id="add-moder-username" placeholder="Логин" required>' +
+              '<input type="password" id="add-moder-password" placeholder="Пароль (мин. 4 символа)" minlength="4" required>' +
+              '<button type="submit">Добавить</button>' +
+              '<span id="add-moder-status" class="form-error"></span>' +
+            '</form>' +
+            '<table id="moders-table" class="moders-table"><thead><tr><th>ID</th><th>Логин</th><th>Действия</th></tr></thead><tbody></tbody></table>' +
+          '</div>';
+        // Загрузка текущих значений
+        try {
+            const [adminRes, backendRes] = await Promise.all([
+                apiFetch('/api/settings/admin-server'),
+                apiFetch('/api/settings/backend-server')
+            ]);
+            const adminData = await adminRes.json();
+            const backendData = await backendRes.json();
+            document.getElementById('admin-port').value = adminData.PORT || '';
+            document.getElementById('admin-url').value = adminData.ADMIN_URL || '';
+            document.getElementById('backend-host').value = backendData.host || '';
+            document.getElementById('backend-port').value = backendData.port || '';
+        } catch (e) {
+            document.getElementById('server-params-status').textContent = 'Ошибка загрузки параметров';
+            document.getElementById('server-params-status').style.color = 'red';
+        }
+        // Обработка сохранения
+        document.getElementById('server-params-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const PORT = document.getElementById('admin-port').value;
+            const ADMIN_URL = document.getElementById('admin-url').value;
+            const host = document.getElementById('backend-host').value;
+            const port = document.getElementById('backend-port').value;
+            const statusEl = document.getElementById('server-params-status');
+            statusEl.textContent = '';
+            try {
+                const [adminRes, backendRes] = await Promise.all([
+                    apiFetch('/api/settings/admin-server', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ PORT, ADMIN_URL })
+                    }),
+                    apiFetch('/api/settings/backend-server', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ host, port })
+                    })
+                ]);
+                if (adminRes.ok && backendRes.ok) {
+                    statusEl.textContent = 'Параметры успешно сохранены';
+                    statusEl.style.color = 'green';
+                    showToast('Параметры успешно сохранены', 'success');
+                } else {
+                    statusEl.textContent = 'Ошибка сохранения';
+                    statusEl.style.color = 'red';
+                    showToast('Ошибка сохранения', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Ошибка сохранения';
+                statusEl.style.color = 'red';
+                showToast('Ошибка сохранения', 'error');
+            }
+        });
+        // --- БД ---
+        // MS SQL
+        async function loadMssql() {
+            try {
+                const res = await apiFetch('/api/settings/mssql');
+                const data = await res.json();
+                document.getElementById('mssql-user').value = data.DB_USER || '';
+                document.getElementById('mssql-pass').value = data.DB_PASSWORD || '';
+                document.getElementById('mssql-server').value = data.DB_SERVER || '';
+                document.getElementById('mssql-db').value = data.DB_NAME || '';
+            } catch (e) {
+                document.getElementById('mssql-status').textContent = 'Ошибка загрузки';
+                document.getElementById('mssql-status').style.color = 'red';
+            }
+        }
+        loadMssql();
+        document.getElementById('mssql-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const DB_USER = document.getElementById('mssql-user').value;
+            const DB_PASSWORD = document.getElementById('mssql-pass').value;
+            const DB_SERVER = document.getElementById('mssql-server').value;
+            const DB_NAME = document.getElementById('mssql-db').value;
+            const statusEl = document.getElementById('mssql-status');
+            statusEl.textContent = '';
+            try {
+                const res = await apiFetch('/api/settings/mssql', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME })
+                });
+                if (res.ok) {
+                    statusEl.textContent = 'Сохранено';
+                    statusEl.style.color = 'green';
+                    showToast('Сохранено', 'success');
+                } else {
+                    statusEl.textContent = 'Ошибка сохранения';
+                    statusEl.style.color = 'red';
+                    showToast('Ошибка сохранения', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Ошибка сохранения';
+                statusEl.style.color = 'red';
+                showToast('Ошибка сохранения', 'error');
+            }
+        });
+        // MySQL
+        async function loadMysql() {
+            try {
+                const res = await apiFetch('/api/settings/mysql');
+                const data = await res.json();
+                document.getElementById('mysql-host').value = data.MYSQL_HOST || '';
+                document.getElementById('mysql-port').value = data.MYSQL_PORT || '';
+                document.getElementById('mysql-user').value = data.MYSQL_USER || '';
+                document.getElementById('mysql-pass').value = data.MYSQL_PASSWORD || '';
+                document.getElementById('mysql-db').value = data.MYSQL_DATABASE || '';
+            } catch (e) {
+                document.getElementById('mysql-status').textContent = 'Ошибка загрузки';
+                document.getElementById('mysql-status').style.color = 'red';
+            }
+        }
+        loadMysql();
+        document.getElementById('mysql-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const MYSQL_HOST = document.getElementById('mysql-host').value;
+            const MYSQL_PORT = document.getElementById('mysql-port').value;
+            const MYSQL_USER = document.getElementById('mysql-user').value;
+            const MYSQL_PASSWORD = document.getElementById('mysql-pass').value;
+            const MYSQL_DATABASE = document.getElementById('mysql-db').value;
+            const statusEl = document.getElementById('mysql-status');
+            statusEl.textContent = '';
+            try {
+                const res = await apiFetch('/api/settings/mysql', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE })
+                });
+                if (res.ok) {
+                    statusEl.textContent = 'Сохранено';
+                    statusEl.style.color = 'green';
+                    showToast('Сохранено', 'success');
+                } else {
+                    statusEl.textContent = 'Ошибка сохранения';
+                    statusEl.style.color = 'red';
+                    showToast('Ошибка сохранения', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Ошибка сохранения';
+                statusEl.style.color = 'red';
+                showToast('Ошибка сохранения', 'error');
+            }
+        });
+        // --- CORS ---
+        let allowedOrigins = [];
+        async function loadCors() {
+            const list = document.getElementById('cors-list');
+            list.innerHTML = '<li>Загрузка...</li>';
+            try {
+                const res = await apiFetch('/api/settings/cors');
+                const data = await res.json();
+                allowedOrigins = Array.isArray(data.ALLOWED_ORIGINS) ? data.ALLOWED_ORIGINS : [];
+                renderCorsList();
+            } catch (e) {
+                list.innerHTML = '<li>Ошибка загрузки</li>';
+            }
+        }
+        const corsInput = document.getElementById('cors-new-origin');
+        const corsAddBtn = document.getElementById('cors-add-btn');
+        corsInput.addEventListener('input', () => {
+            const val = corsInput.value.trim();
+            corsAddBtn.disabled = !val || allowedOrigins.includes(val);
+        });
+        function renderCorsList() {
+            const list = document.getElementById('cors-list');
+            list.innerHTML = '';
+            if (!allowedOrigins.length) {
+                list.innerHTML = '<li>Нет origin</li>';
+                return;
+            }
+            allowedOrigins.forEach((origin, idx) => {
+                const li = document.createElement('li');
+                li.textContent = origin + ' ';
+                const delBtn = document.createElement('button');
+                delBtn.textContent = 'Удалить';
+                delBtn.className = 'btn-small';
+                delBtn.addEventListener('click', () => {
+                    allowedOrigins.splice(idx, 1);
+                    renderCorsList();
+                    corsAddBtn.disabled = !corsInput.value.trim() || allowedOrigins.includes(corsInput.value.trim());
+                });
+                li.appendChild(delBtn);
+                list.appendChild(li);
+            });
+            corsAddBtn.disabled = !corsInput.value.trim() || allowedOrigins.includes(corsInput.value.trim());
+        }
+        loadCors();
+        document.getElementById('cors-add-btn').addEventListener('click', () => {
+            const input = document.getElementById('cors-new-origin');
+            const val = input.value.trim();
+            if (val && !allowedOrigins.includes(val)) {
+                allowedOrigins.push(val);
+                input.value = '';
+                renderCorsList();
+                corsAddBtn.disabled = true;
+            }
+        });
+        document.getElementById('cors-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const statusEl = document.getElementById('cors-status');
+            statusEl.textContent = '';
+            try {
+                const res = await apiFetch('/api/settings/cors', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ALLOWED_ORIGINS: allowedOrigins })
+                });
+                if (res.ok) {
+                    statusEl.textContent = 'Сохранено';
+                    statusEl.style.color = 'green';
+                    showToast('Сохранено', 'success');
+                } else {
+                    statusEl.textContent = 'Ошибка сохранения';
+                    statusEl.style.color = 'red';
+                    showToast('Ошибка сохранения', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Ошибка сохранения';
+                statusEl.style.color = 'red';
+                showToast('Ошибка сохранения', 'error');
+            }
+        });
+        // --- МОДЕРАТОРЫ ---
+        async function loadModers() {
+            const tableBody = document.querySelector('#moders-table tbody');
+            tableBody.innerHTML = '<tr><td colspan="3">Загрузка...</td></tr>';
+            try {
+                const res = await apiFetch('/api/settings/moders');
+                const moders = await res.json();
+                if (!Array.isArray(moders) || !moders.length) {
+                    tableBody.innerHTML = '<tr><td colspan="3">Нет модераторов</td></tr>';
+                    return;
+                }
+                tableBody.innerHTML = '';
+                for (const moder of moders) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${moder.id}</td><td>${moder.username}</td>` +
+                      `<td>` +
+                        `<button class="btn-small" data-action="reset" data-id="${moder.id}" title="Сменить пароль">🔑</button> ` +
+                        `<button class="btn-small" data-action="delete" data-id="${moder.id}" title="Удалить">🗑️</button>` +
+                      `</td>`;
+                    tableBody.appendChild(tr);
+                }
+            } catch (e) {
+                tableBody.innerHTML = '<tr><td colspan="3">Ошибка загрузки</td></tr>';
+            }
+        }
+        loadModers();
+        // Добавление модератора
+        document.getElementById('add-moder-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('add-moder-username').value.trim();
+            const password = document.getElementById('add-moder-password').value;
+            const statusEl = document.getElementById('add-moder-status');
+            statusEl.textContent = '';
+            if (!username || !password) {
+                statusEl.textContent = 'Заполните все поля';
+                statusEl.style.color = 'red';
+                return;
+            }
+            try {
+                const res = await apiFetch('/api/settings/moders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                if (res.ok) {
+                    statusEl.textContent = 'Модератор добавлен';
+                    statusEl.style.color = 'green';
+                    document.getElementById('add-moder-form').reset();
+                    loadModers();
+                    showToast('Модератор добавлен', 'success');
+                } else {
+                    const data = await res.json();
+                    statusEl.textContent = data.message || 'Ошибка';
+                    statusEl.style.color = 'red';
+                    showToast(data.message || 'Ошибка', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Ошибка';
+                statusEl.style.color = 'red';
+                showToast('Ошибка', 'error');
+            }
+        });
+        // Действия: удалить/сменить пароль
+        document.getElementById('moders-table').addEventListener('click', async (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const id = btn.getAttribute('data-id');
+            const action = btn.getAttribute('data-action');
+            if (action === 'delete') {
+                if (!confirm('Удалить модератора?')) return;
+                try {
+                    const res = await apiFetch(`/api/settings/moders/${id}`, { method: 'DELETE' });
+                    if (res.ok) {
+                        loadModers();
+                        showToast('Модератор удален', 'success');
+                    } else {
+                        alert('Ошибка удаления');
+                        showToast('Ошибка удаления', 'error');
+                    }
+                } catch (e) {
+                    alert('Ошибка удаления');
+                    showToast('Ошибка удаления', 'error');
+                }
+            } else if (action === 'reset') {
+                const newPass = prompt('Введите новый пароль для модератора:');
+                if (!newPass) return;
+                try {
+                    const res = await apiFetch(`/api/settings/moders/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ password: newPass })
+                    });
+                    if (res.ok) {
+                        alert('Пароль обновлён');
+                        showToast('Пароль обновлён', 'success');
+                    } else {
+                        alert('Ошибка смены пароля');
+                        showToast('Ошибка смены пароля', 'error');
+                    }
+                } catch (e) {
+                    alert('Ошибка смены пароля');
+                    showToast('Ошибка смены пароля', 'error');
+                }
+            }
+        });
+    }
 
     fetchStatus();
     fetchConfig();
