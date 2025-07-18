@@ -105,15 +105,38 @@ const HandbookBlocks: React.FC<{ html: string }> = ({ html }) => {
     );
 };
 
+const ADMIN_SERVER_URL = config.adminServerUrl;
+
+function patchMediaSrc(html: string): string {
+    return html
+        .replace(/<img([^>]+)src=["'](\/uploads\/[^"']+)["']/g, `<img$1src="${ADMIN_SERVER_URL}$2"`)
+        .replace(/<video([^>]+)src=["'](\/uploads\/[^"']+)["']/g, `<video$1src="${ADMIN_SERVER_URL}$2"`);
+}
+
+const renderContentBlocks = (blocks: any[]) => (
+    <>
+        {blocks.map((block, i) => (
+            <div key={block.id || i} style={{marginBottom: 16}} dangerouslySetInnerHTML={{ __html: patchMediaSrc(block.content) }} />
+        ))}
+    </>
+);
+
 const GuestMode: React.FC<GuestModeProps> = ({ onBack }) => {
     const [activeTab, setActiveTab] = useState<'handbook' | 'union' | 'info'>('handbook');
     const [handbookContent, setHandbookContent] = useState<string>('');
     const [loading, setLoading] = useState(false);
+    const [infoBlocks, setInfoBlocks] = useState<any[]>([]);
+    const [unionBlocks, setUnionBlocks] = useState<any[]>([]);
 
     useEffect(() => {
         if (activeTab === 'handbook') {
             loadHandbook();
+        } else if (activeTab === 'info') {
+            loadInfoBlocks();
+        } else if (activeTab === 'union') {
+            loadUnionBlocks();
         }
+        // eslint-disable-next-line
     }, [activeTab]);
 
     const loadHandbook = async () => {
@@ -124,6 +147,30 @@ const GuestMode: React.FC<GuestModeProps> = ({ onBack }) => {
             setHandbookContent(html);
         } catch (error) {
             setHandbookContent('Ошибка загрузки справочника');
+        }
+        setLoading(false);
+    };
+
+    const loadInfoBlocks = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(`${ADMIN_SERVER_URL}/moders/content/info`);
+            const data = await res.json();
+            setInfoBlocks(Array.isArray(data) ? data : []);
+        } catch (e) {
+            setInfoBlocks([]);
+        }
+        setLoading(false);
+    };
+
+    const loadUnionBlocks = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(`${ADMIN_SERVER_URL}/moders/content/union`);
+            const data = await res.json();
+            setUnionBlocks(Array.isArray(data) ? data : []);
+        } catch (e) {
+            setUnionBlocks([]);
         }
         setLoading(false);
     };
@@ -169,14 +216,20 @@ const GuestMode: React.FC<GuestModeProps> = ({ onBack }) => {
                     )}
                     {activeTab === 'union' && (
                         <div className="union-content">
-                            <h3>Информация о профсоюзе</h3>
-                            <p>Здесь будет размещена информация о профсоюзной организации.</p>
+                            {loading ? (
+                                <div className="loading">Загрузка...</div>
+                            ) : (
+                                unionBlocks.length ? renderContentBlocks(unionBlocks) : <p>Нет информации о профсоюзе.</p>
+                            )}
                         </div>
                     )}
                     {activeTab === 'info' && (
                         <div className="info-content">
-                            <h3>Общая информация</h3>
-                            <p>Здесь будет размещена общая информация о предприятии.</p>
+                            {loading ? (
+                                <div className="loading">Загрузка...</div>
+                            ) : (
+                                infoBlocks.length ? renderContentBlocks(infoBlocks) : <p>Нет общей информации.</p>
+                            )}
                         </div>
                     )}
                 </div>

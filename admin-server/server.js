@@ -5,32 +5,87 @@ const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const { app: electronApp, dialog } = require('electron');
 const sql = require('mssql');
 const { exec, spawn } = require('child_process');
 const iconv = require('iconv-lite');
 const WebSocket = require('ws');
-require('dotenv').config({ path: path.join(__dirname, 'config.env') });
+const csurf = require('csurf');
+require('dotenv').config({ path: path.join(__dirname, './config.env') });
+require('dotenv').config({ path: __dirname + '/moders/config.env' });
 
 const logger  = require('./logger');
+const moderAuthRouter = require('./moders/routes/moderAuth');
+const contentRouter = require('./moders/routes/content');
 
 const app = express();
 const PORT = process.env.PORT || 3005; 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY || 'mhmh4563463fds';
 const LOGS_DIR = path.join(__dirname, process.env.LOGS_DIR);
 const CARD_LOG_PATH = path.join(LOGS_DIR, process.env.CARD_LOG_PATH);
 const TEST_LOG_PATH = path.join(__dirname, 'logs', 'test.log'); 
+const ADMIN_URL = process.env.ADMIN_URL;
 
-app.use(cors());
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000')
+  .split(',')
+  .map(origin => origin.trim());
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Разрешаем запросы без Origin (например, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('CORS: Origin not allowed'), false);
+    }
+  },
+  credentials: true
+}));
 app.use(morgan('dev')); 
 app.use(express.json());
+
+const sessionStore = new MySQLStore({
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
+});
+
+sessionStore.on('error', function(error) {
+  console.error('[SESSION STORE ERROR]', error);
+});
+
 app.use(session({
-    secret: SECRET_KEY, 
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } 
+  secret: SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore,
+  cookie: { secure: false, httpOnly: true, maxAge: 10 * 60 * 60 * 1000 }
 }));
+
+const csrfProtection = csurf({ cookie: false });
+
+app.post('/moders/moder-login', moderAuthRouter.stack.find(r => r.route && r.route.path === '/moder-login' && r.route.methods.post).route.stack[0].handle);
+
+app.use(csrfProtection);
+
+app.get('/moders/csrf-token', (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
+
+app.use((err, req, res, next) => {
+  if (err.code === 'EBADCSRFTOKEN') {
+    return res.status(403).json({ message: 'CSRF token invalid' });
+  }
+  next(err);
+});
+
+app.use('/moders', moderAuthRouter);
+app.use('/moders/content', contentRouter);
 
 // Проверка и создание папки для логов
 if (!fs.existsSync(LOGS_DIR)) {
@@ -66,11 +121,11 @@ app.post('/login', (req, res) => {
 
 app.use('/login.html', express.static(path.join(__dirname, 'public', 'login.html')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.get('/', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 app.post('/api/card-event', (req, res) => {
     logger.info('[CARD EVENT] Received:', req.body);
     

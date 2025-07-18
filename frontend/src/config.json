@@ -1,5 +1,6 @@
 {
     "backendUrl": "http://localhost:3001",
     "adminUrl" : "http://localhost:3005",
-    "frontUrl" : "http://localhost:3000"
+    "frontUrl" : "http://localhost:3000",
+    "adminServerUrl": "http://localhost:3005"
 } 

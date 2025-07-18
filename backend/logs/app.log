@@ -155,3 +155,200 @@
 {"level":"info","message":"Final payslip path: \\192.168.39.124\\С$\\payslips\\062025\\20343.pdf","service":"user-service","timestamp":"10:17:17 2025-07-15 "}
 {"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"10:17:17 2025-07-15 "}
 {"level":"warn","message":"Payslip not found: \\192.168.39.124\\С$\\payslips\\062025\\20343.pdf","service":"user-service","timestamp":"10:17:17 2025-07-15 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"16:53:36 2025-07-16 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"16:57:08 2025-07-16 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"16:57:08 2025-07-16 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"16:57:08 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:14 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:14 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:14 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:14 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:24 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:24 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:24 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:57:24 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:36 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:36 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:36 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:36 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:40 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:40 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:45 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:45 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:46 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:58:46 2025-07-16 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"17:01:43 2025-07-16 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"17:01:44 2025-07-16 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"10:14:34 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"10:19:20 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"10:19:20 2025-07-17 "}
+{"0":"COM1","1":"COM6","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"10:19:20 2025-07-17 "}
+{"level":"info","message":" Serial port открыт","service":"user-service","timestamp":"10:19:20 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:34 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:34 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:34 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:35 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:43 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:44 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:44 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:19:44 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"11:32:46 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"11:36:38 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"11:36:38 2025-07-17 "}
+{"0":"COM1","1":"COM6","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"11:36:38 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:36:42 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:36:43 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:36:43 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:36:43 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:37:49 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:37:49 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:37:49 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:37:49 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:43:49 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:43:49 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:43:49 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:43:49 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:50:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:50:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:50:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:50:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:51:06 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:51:07 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:51:07 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:51:07 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"11:52:26 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"11:52:32 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"11:52:32 2025-07-17 "}
+{"0":"COM1","1":"COM6","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"11:52:32 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:52:34 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:52:34 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:52:34 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:52:34 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:53:16 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:53:16 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:53:16 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:53:16 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:21 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:21 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:21 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:21 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:25 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"11:54:25 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:00:41 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:00:41 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:00:41 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:00:41 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:18:45 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:18:45 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:18:46 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:18:46 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"12:19:19 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"12:19:28 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"12:19:28 2025-07-17 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"12:19:28 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:19:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:19:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:19:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:19:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:08 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:08 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:09 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:09 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:32 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:32 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:32 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:20:32 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:23:12 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:23:12 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:23:12 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:23:12 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:44 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:45 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:45 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:25:45 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:26:58 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:26:58 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:26:58 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:26:58 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:27:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:27:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:27:30 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:27:30 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:32:59 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:32:59 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:32:59 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:32:59 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:33:03 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:33:03 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:44:39 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:44:40 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:44:40 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:44:40 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:54:27 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:54:27 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:54:27 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:54:27 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:59:55 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:59:55 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:59:55 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"12:59:55 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"13:38:07 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"13:38:47 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"13:38:47 2025-07-17 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"13:38:47 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:42:22 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:42:22 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:42:22 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:42:22 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"13:50:12 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"13:50:12 2025-07-17 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"13:50:12 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:50:27 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:50:27 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:50:27 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"13:50:27 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:56:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:56:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:56:19 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:56:19 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:58:21 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:58:21 2025-07-17 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:58:21 2025-07-17 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"14:58:21 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"16:32:14 2025-07-17 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"16:32:17 2025-07-17 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"16:32:17 2025-07-17 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"16:32:17 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"16:50:49 2025-07-17 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"08:35:14 2025-07-18 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"08:36:09 2025-07-18 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"08:36:09 2025-07-18 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"08:36:09 2025-07-18 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:36:13 2025-07-18 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:36:13 2025-07-18 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:36:13 2025-07-18 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:36:13 2025-07-18 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 23800.pdf","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"level":"info","message":"Base path from config: \\192.168.39.124\\С$\\payslips","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.124\\С$\\payslips\\072025\\23800.pdf","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.124\\С$\\payslips\\072025\\23800.pdf","service":"user-service","timestamp":"08:39:35 2025-07-18 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:39:39 2025-07-18 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:39:39 2025-07-18 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:39:39 2025-07-18 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"08:39:40 2025-07-18 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 16802.pdf","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
+{"level":"info","message":"Base path from config: \\192.168.39.124\\С$\\payslips","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
+{"level":"info","message":"Final payslip path: \\192.168.39.124\\С$\\payslips\\072025\\16802.pdf","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
+{"level":"info","message":"Base path exists: false","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
+{"level":"warn","message":"Payslip not found: \\192.168.39.124\\С$\\payslips\\072025\\16802.pdf","service":"user-service","timestamp":"08:39:46 2025-07-18 "}
