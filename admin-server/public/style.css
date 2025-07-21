@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-    max-width: 80%px;
+    max-width: 80%;
     margin: 0 auto;
     background: #fff;
     padding: 20px;
@@ -131,7 +131,7 @@ button:hover {
 }
 
 .ping-controls {
-    display: flex;
+    display: inline-flex;
     gap: 10px;
     margin-bottom: 10px;
 }

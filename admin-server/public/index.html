@@ -78,7 +78,57 @@
             </div>
         </div>
         <div id="settings-tab" style="display:none">
-            <!-- Здесь будут формы для управления настройками -->
+            <h2>Настройки</h2> 
+          <div id="server-params-section"><h3>Параметры серверов</h3> 
+          <form id="server-params-form" novalidate> 
+            <fieldset><legend>Admin-server</legend> 
+                <label>PORT: <input type="number" id="admin-port" min="1" max="65535" required></label><br> 
+                <label>ADMIN_URL: <input type="text" id="admin-url" pattern="https?://." required></label> 
+            </fieldset> 
+            <fieldset><legend>Backend</legend> 
+                <label>host: <input type="text" id="backend-host" required></label><br> 
+                <label>port: <input type="number" id="backend-port" min="1" max="65535" required></label> 
+            </fieldset> 
+            <button type="submit">Сохранить</button> 
+            <span id="server-params-status" class="form-error"></span> 
+          </form></div> 
+          <div id="db-section"><h3>Подключения к БД</h3> 
+            <form id="mssql-form" novalidate><fieldset><legend>MS SQL</legend> 
+              <label>DB_USER: <input type="text" id="mssql-user" required></label><br> 
+              <label>DB_PASSWORD: <input type="password" id="mssql-pass" minlength="4" required></label><br> 
+              <label>DB_SERVER: <input type="text" id="mssql-server" required></label><br> 
+              <label>DB_NAME: <input type="text" id="mssql-db" required></label><br> 
+              <button type="submit">Сохранить</button> 
+              <span id="mssql-status" class="form-error"></span> 
+            </fieldset></form> 
+            <form id="mysql-form" novalidate><fieldset><legend>MySQL (модераторы)</legend> 
+              <label>MYSQL_HOST: <input type="text" id="mysql-host" required></label><br> 
+              <label>MYSQL_PORT: <input type="number" id="mysql-port" min="1" max="65535" required></label><br> 
+              <label>MYSQL_USER: <input type="text" id="mysql-user" required></label><br> 
+              <label>MYSQL_PASSWORD: <input type="password" id="mysql-pass" minlength="4" required></label><br> 
+              <label>MYSQL_DATABASE: <input type="text" id="mysql-db" required></label><br> 
+              <button type="submit">Сохранить</button> 
+              <span id="mysql-status" class="form-error"></span> 
+            </fieldset></form> 
+          </div> 
+          <div id="cors-section"><h3>CORS (ALLOWED_ORIGINS)</h3> 
+            <form id="cors-form"> 
+              <ul id="cors-list"></ul> 
+              <input type="text" id="cors-new-origin" placeholder="Добавить origin..."> 
+              <button type="button" id="cors-add-btn" disabled>Добавить</button> 
+              <button type="submit">Сохранить</button> 
+              <span id="cors-status" class="form-error"></span> 
+            </form> 
+          </div> 
+          <div id="moders-section"><h3>Модераторы</h3> 
+            <form id="add-moder-form" novalidate> 
+              <input type="text" id="add-moder-username" placeholder="Логин" required> 
+              <input type="password" id="add-moder-password" placeholder="Пароль (мин. 4 символа)" minlength="4" required> 
+              <button type="submit">Добавить</button> 
+              <span id="add-moder-status" class="form-error"></span> 
+            </form> 
+            <table id="moders-table" class="moders-table"><thead><tr><th>ID</th><th>Логин</th><th>Действия</th></tr></thead><tbody></tbody></table> 
+          </div>
         </div>
     </div>
     <script src="app.js"></script>

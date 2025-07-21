@@ -599,3 +599,90 @@
 [2025-07-18T11:17:55.739Z] [INFO] Admin server running on http://localhost:3005:3005
 [2025-07-18T11:17:55.739Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
 [2025-07-18T11:17:55.740Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T13:17:20.354Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-18T13:17:20.354Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-18T13:17:20.355Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-18T13:21:14.759Z] [INFO] Login successful
+[2025-07-18T13:22:02.033Z] [INFO] Good connect to Web-socket
+[2025-07-21T05:43:20.819Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T05:43:20.820Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T05:43:20.820Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T05:43:43.245Z] [INFO] Login successful
+[2025-07-21T05:47:37.338Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:47:37.339Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:47:37.472Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:47:37.473Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:47:37.603Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:47:37.603Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:47:48.808Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:47:48.808Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:47:48.809Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:47:48.811Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:47:48.860Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:47:48.860Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:48:17.951Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:48:17.951Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:48:17.953Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:48:17.953Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:48:18.003Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:48:18.003Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:48:26.111Z] [INFO] [LOGIN] Попытка входа: test
+[2025-07-21T05:48:26.111Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:48:26.121Z] [INFO] [LOGIN] Результат поиска пользователя: не найден
+[2025-07-21T05:48:26.121Z] [WARN] [LOGIN] Пользователь не найден: test
+[2025-07-21T05:48:52.232Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:48:52.233Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:48:52.234Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:48:52.234Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:48:52.284Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:48:52.284Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:51:38.171Z] [INFO] Login successful
+[2025-07-21T05:54:01.375Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T05:54:01.375Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T05:54:01.375Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T05:54:16.219Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:54:16.220Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:54:16.229Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:54:16.230Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:54:16.279Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:54:16.280Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:56:35.352Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-21T05:56:35.353Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:56:35.354Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T05:56:35.355Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T05:56:35.405Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-21T05:56:35.405Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-21T05:56:53.047Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-21T05:56:53.048Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:56:53.049Z] [INFO] [LOGIN] Результат поиска пользователя: не найден
+[2025-07-21T05:56:53.049Z] [WARN] [LOGIN] Пользователь не найден: grivova
+[2025-07-21T05:57:03.947Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-21T05:57:03.947Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T05:57:03.948Z] [INFO] [LOGIN] Результат поиска пользователя: не найден
+[2025-07-21T05:57:03.948Z] [WARN] [LOGIN] Пользователь не найден: grivova
+[2025-07-21T06:03:08.154Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-21T06:03:08.155Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-21T06:03:08.156Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-21T06:03:08.156Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-21T06:03:08.206Z] [INFO] [LOGIN] Результат сравнения пароля: true
+[2025-07-21T06:03:08.207Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":3,"username":"grivova"}
+[2025-07-21T06:03:08.209Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-21T06:04:41.874Z] [INFO] Login successful
+[2025-07-21T08:29:53.691Z] [INFO] Admin server running on http://localhost:3002:3002
+[2025-07-21T08:29:53.691Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T08:29:53.692Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T08:30:33.613Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T08:30:33.614Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T08:30:33.614Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T08:30:37.964Z] [INFO] Login successful
+[2025-07-21T08:31:04.544Z] [INFO] Admin server running on http://localhost:3002:3002
+[2025-07-21T08:31:04.545Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T08:31:04.545Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T08:32:13.301Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T08:32:13.301Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T08:32:13.302Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T08:32:18.708Z] [INFO] Login successful
+[2025-07-21T09:23:10.572Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T09:23:10.573Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T09:23:10.573Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T09:23:22.933Z] [INFO] Login successful

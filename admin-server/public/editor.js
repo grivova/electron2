@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editModal.style.display = 'none';
         loadBlocks(currentTab);
     });
-    fetch('/moders/check-session').then(res => {
+    fetch('/moders/check-session', { credentials: 'include' }).then(res => {
         if (res.ok) {
             loginSection.style.display = 'none';
             editorSection.style.display = '';
