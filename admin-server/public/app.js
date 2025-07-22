@@ -261,25 +261,35 @@ configForm.addEventListener('submit', (e) => {
     // --- ТАБЫ ---
     const tabMainBtn = document.getElementById('tab-main');
     const tabSettingsBtn = document.getElementById('tab-settings');
+    const tabMonitoringBtn = document.getElementById('tab-monitoring');
     const mainTab = document.getElementById('main-tab');
     const settingsTab = document.getElementById('settings-tab');
+    const monitoringTab = document.getElementById('monitoring-tab');
 
     function showTab(tab) {
+        mainTab.style.display = 'none';
+        settingsTab.style.display = 'none';
+        monitoringTab.style.display = 'none';
+        tabMainBtn.classList.remove('active');
+        tabSettingsBtn.classList.remove('active');
+        tabMonitoringBtn.classList.remove('active');
+
         if (tab === 'main') {
             mainTab.style.display = '';
-            settingsTab.style.display = 'none';
             tabMainBtn.classList.add('active');
-            tabSettingsBtn.classList.remove('active');
-        } else {
-            mainTab.style.display = 'none';
+        } else if (tab === 'settings') {
             settingsTab.style.display = '';
-            tabMainBtn.classList.remove('active');
             tabSettingsBtn.classList.add('active');
             initSettingsTab();
+        } else if (tab === 'monitoring') {
+            monitoringTab.style.display = '';
+            tabMonitoringBtn.classList.add('active');
+            initMonitoringTab();
         }
     }
     tabMainBtn.addEventListener('click', () => showTab('main'));
     tabSettingsBtn.addEventListener('click', () => showTab('settings'));
+    tabMonitoringBtn.addEventListener('click', () => showTab('monitoring'));
 
     // --- TOAST ---
     function showToast(message, type = 'success') {
@@ -316,6 +326,97 @@ configForm.addEventListener('submit', (e) => {
         return fetch(url, options);
     }
 
+    // --- Модальное окно подтверждения ---
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmModalText = document.getElementById('confirm-modal-text');
+    const confirmModalYes = document.getElementById('confirm-modal-yes');
+    const confirmModalNo = document.getElementById('confirm-modal-no');
+
+    function showConfirm(text, onConfirm) {
+        confirmModalText.textContent = text;
+        confirmModal.style.display = 'flex';
+
+        const yesListener = () => {
+            onConfirm();
+            closeConfirm();
+        };
+
+        const closeConfirm = () => {
+            confirmModal.style.display = 'none';
+            confirmModalYes.removeEventListener('click', yesListener);
+            confirmModalNo.removeEventListener('click', closeConfirm);
+        }
+
+        confirmModalYes.addEventListener('click', yesListener);
+        confirmModalNo.addEventListener('click', closeConfirm);
+    }
+
+
+    // --- ВКЛАДКА МОНИТОРИНГА ---
+    let monitoringInitialized = false;
+    let allMonitoringEvents = []; // Кэш для всех событий
+
+    async function initMonitoringTab() {
+        if (monitoringInitialized) return;
+        monitoringInitialized = true;
+
+        const tableBody = document.querySelector('#monitoring-log-table tbody');
+        const levelFilter = document.getElementById('log-level-filter');
+        const sourceFilter = document.getElementById('log-source-filter');
+        const refreshBtn = document.getElementById('refresh-monitoring-btn');
+
+        async function loadMonitoringLogs() {
+            tableBody.innerHTML = '<tr><td colspan="4">Загрузка...</td></tr>';
+            try {
+                const res = await apiFetch('/api/monitoring/logs');
+                if (!res.ok) throw new Error('Failed to fetch logs');
+                
+                allMonitoringEvents = await res.json();
+                renderTable();
+
+            } catch (e) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="color: red;">Ошибка загрузки логов.</td></tr>';
+                console.error('Error loading monitoring logs:', e);
+            }
+        }
+
+        function renderTable() {
+            const level = levelFilter.value;
+            const source = sourceFilter.value;
+
+            const filteredEvents = allMonitoringEvents.filter(event => {
+                const levelMatch = (level === 'all') || (event.level === level);
+                const sourceMatch = (source === 'all') || (event.source === source);
+                return levelMatch && sourceMatch;
+            });
+
+            tableBody.innerHTML = '';
+            if (filteredEvents.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4">Нет событий для отображения.</td></tr>';
+                return;
+            }
+
+            filteredEvents.forEach(event => {
+                const tr = document.createElement('tr');
+                tr.className = `log-level-${event.level.toLowerCase()}`;
+                tr.innerHTML = `
+                    <td>${new Date(event.timestamp).toLocaleString()}</td>
+                    <td><span class="log-level-label">${event.level}</span></td>
+                    <td>${event.source}</td>
+                    <td>${event.message}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        levelFilter.addEventListener('change', renderTable);
+        sourceFilter.addEventListener('change', renderTable);
+        refreshBtn.addEventListener('click', loadMonitoringLogs);
+
+        loadMonitoringLogs();
+    }
+
+
     // --- НАСТРОЙКИ: инициализация вкладки ---
     let settingsInitialized = false; 
 
@@ -323,20 +424,53 @@ configForm.addEventListener('submit', (e) => {
         if(settingsInitialized) return;
         settingsInitialized = true;
         
+        initServerParamsSection();
+        initDbSection();
+        initCorsSection();
+        initModersSection();
+        
+        settingsTab.addEventListener('click', (e) => {
+            if (e.target.dataset.action === 'edit-pass') {
+                const targetId = e.target.dataset.target;
+                const input = document.getElementById(targetId);
+                input.readOnly = false;
+                input.value = '';
+                input.placeholder = 'Введите новый пароль...';
+                input.focus();
+                e.target.remove();
+            }
+        });
+    }
+
+    async function initServerParamsSection() {
         // Загрузка текущих значений
         try {
-            const [adminRes, backendRes] = await Promise.all([
+            const results = await Promise.allSettled([
                 apiFetch('/api/settings/admin-server'),
                 apiFetch('/api/settings/backend-server')
             ]);
-            const adminData = await adminRes.json();
-            const backendData = await backendRes.json();
+
+            const adminResult = results[0];
+            if (adminResult.status === 'fulfilled') {
+                const adminData = await adminResult.value.json();
             document.getElementById('admin-port').value = adminData.PORT || '';
             document.getElementById('admin-url').value = adminData.ADMIN_URL || '';
+            } else {
+                console.error('Failed to load admin-server settings:', adminResult.reason);
+            }
+
+            const backendResult = results[1];
+            if (backendResult.status === 'fulfilled') {
+                const backendData = await backendResult.value.json();
             document.getElementById('backend-host').value = backendData.host || '';
             document.getElementById('backend-port').value = backendData.port || '';
+            } else {
+                console.error('Failed to load backend-server settings:', backendResult.reason);
+                document.getElementById('server-params-status').textContent += ' Ошибка загрузки параметров Backend.';
+            }
+
         } catch (e) {
-            document.getElementById('server-params-status').textContent = 'Ошибка загрузки параметров';
+            document.getElementById('server-params-status').textContent = 'Критическая ошибка загрузки параметров';
             document.getElementById('server-params-status').style.color = 'red';
         }
         // Обработка сохранения
@@ -362,7 +496,7 @@ configForm.addEventListener('submit', (e) => {
                     })
                 ]);
                 if (adminRes.ok && backendRes.ok) {
-                    statusEl.textContent = 'Параметры успешно сохранены';
+                    statusEl.innerHTML = 'Параметры успешно сохранены.<br><strong class="warning-text">Требуется перезапуск обоих серверов для применения!</strong>';
                     statusEl.style.color = 'green';
                     showToast('Параметры успешно сохранены', 'success');
                 } else {
@@ -376,6 +510,9 @@ configForm.addEventListener('submit', (e) => {
                 showToast('Ошибка сохранения', 'error');
             }
         });
+    }
+
+    function initDbSection() {
         // --- БД ---
         // MS SQL
         async function loadMssql() {
@@ -383,7 +520,16 @@ configForm.addEventListener('submit', (e) => {
                 const res = await apiFetch('/api/settings/mssql');
                 const data = await res.json();
                 document.getElementById('mssql-user').value = data.DB_USER || '';
-                document.getElementById('mssql-pass').value = data.DB_PASSWORD || '';
+                
+                const passWrapper = document.getElementById('mssql-pass').closest('.password-wrapper');
+                passWrapper.innerHTML = `
+                    <input type="password" id="mssql-pass" readonly>
+                    <button type="button" class="btn-small" data-action="edit-pass" data-target="mssql-pass">Изменить</button>
+                `;
+                if (data.DB_PASSWORD) {
+                    passWrapper.querySelector('input').placeholder = '********';
+                }
+
                 document.getElementById('mssql-server').value = data.DB_SERVER || '';
                 document.getElementById('mssql-db').value = data.DB_NAME || '';
             } catch (e) {
@@ -394,22 +540,30 @@ configForm.addEventListener('submit', (e) => {
         loadMssql();
         document.getElementById('mssql-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const DB_USER = document.getElementById('mssql-user').value;
-            const DB_PASSWORD = document.getElementById('mssql-pass').value;
-            const DB_SERVER = document.getElementById('mssql-server').value;
-            const DB_NAME = document.getElementById('mssql-db').value;
+
+            const payload = {
+                DB_USER: document.getElementById('mssql-user').value,
+                DB_SERVER: document.getElementById('mssql-server').value,
+                DB_NAME: document.getElementById('mssql-db').value
+            };
+            const passInput = document.getElementById('mssql-pass');
+            if (!passInput.readOnly) {
+                payload.DB_PASSWORD = passInput.value;
+            }
+
             const statusEl = document.getElementById('mssql-status');
             statusEl.textContent = '';
             try {
                 const res = await apiFetch('/api/settings/mssql', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME })
+                    body: JSON.stringify(payload)
                 });
                 if (res.ok) {
-                    statusEl.textContent = 'Сохранено';
+                    statusEl.innerHTML = 'Сохранено.<br><strong class="warning-text">Требуется перезапуск Admin-server для применения!</strong>';
                     statusEl.style.color = 'green';
                     showToast('Сохранено', 'success');
+                    loadMssql(); // Перезагружаем секцию, чтобы сбросить поле пароля
                 } else {
                     statusEl.textContent = 'Ошибка сохранения';
                     statusEl.style.color = 'red';
@@ -429,7 +583,16 @@ configForm.addEventListener('submit', (e) => {
                 document.getElementById('mysql-host').value = data.MYSQL_HOST || '';
                 document.getElementById('mysql-port').value = data.MYSQL_PORT || '';
                 document.getElementById('mysql-user').value = data.MYSQL_USER || '';
-                document.getElementById('mysql-pass').value = data.MYSQL_PASSWORD || '';
+
+                const passWrapper = document.getElementById('mysql-pass').closest('.password-wrapper');
+                passWrapper.innerHTML = `
+                    <input type="password" id="mysql-pass" readonly>
+                    <button type="button" class="btn-small" data-action="edit-pass" data-target="mysql-pass">Изменить</button>
+                `;
+                if (data.MYSQL_PASSWORD) {
+                    passWrapper.querySelector('input').placeholder = '********';
+                }
+
                 document.getElementById('mysql-db').value = data.MYSQL_DATABASE || '';
             } catch (e) {
                 document.getElementById('mysql-status').textContent = 'Ошибка загрузки';
@@ -439,23 +602,31 @@ configForm.addEventListener('submit', (e) => {
         loadMysql();
         document.getElementById('mysql-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const MYSQL_HOST = document.getElementById('mysql-host').value;
-            const MYSQL_PORT = document.getElementById('mysql-port').value;
-            const MYSQL_USER = document.getElementById('mysql-user').value;
-            const MYSQL_PASSWORD = document.getElementById('mysql-pass').value;
-            const MYSQL_DATABASE = document.getElementById('mysql-db').value;
+
+            const payload = {
+                MYSQL_HOST: document.getElementById('mysql-host').value,
+                MYSQL_PORT: document.getElementById('mysql-port').value,
+                MYSQL_USER: document.getElementById('mysql-user').value,
+                MYSQL_DATABASE: document.getElementById('mysql-db').value
+            };
+            const passInput = document.getElementById('mysql-pass');
+            if (!passInput.readOnly) {
+                payload.MYSQL_PASSWORD = passInput.value;
+            }
+
             const statusEl = document.getElementById('mysql-status');
             statusEl.textContent = '';
             try {
                 const res = await apiFetch('/api/settings/mysql', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE })
+                    body: JSON.stringify(payload)
                 });
                 if (res.ok) {
-                    statusEl.textContent = 'Сохранено';
+                    statusEl.innerHTML = 'Сохранено.<br><strong class="warning-text">Требуется перезапуск Admin-server для применения!</strong>';
                     statusEl.style.color = 'green';
                     showToast('Сохранено', 'success');
+                    loadMysql(); // Перезагружаем секцию, чтобы сбросить поле пароля
                 } else {
                     statusEl.textContent = 'Ошибка сохранения';
                     statusEl.style.color = 'red';
@@ -467,6 +638,9 @@ configForm.addEventListener('submit', (e) => {
                 showToast('Ошибка сохранения', 'error');
             }
         });
+    }
+
+    function initCorsSection() {
         // --- CORS ---
         let allowedOrigins = [];
         async function loadCors() {
@@ -532,7 +706,7 @@ configForm.addEventListener('submit', (e) => {
                     body: JSON.stringify({ ALLOWED_ORIGINS: allowedOrigins })
                 });
                 if (res.ok) {
-                    statusEl.textContent = 'Сохранено';
+                    statusEl.innerHTML = 'Сохранено.<br><strong class="warning-text">Требуется перезапуск Admin-server для применения!</strong>';
                     statusEl.style.color = 'green';
                     showToast('Сохранено', 'success');
                 } else {
@@ -546,6 +720,9 @@ configForm.addEventListener('submit', (e) => {
                 showToast('Ошибка сохранения', 'error');
             }
         });
+    }
+
+    function initModersSection() {
         // --- МОДЕРАТОРЫ ---
         async function loadModers() {
             const tableBody = document.querySelector('#moders-table tbody');
@@ -560,10 +737,11 @@ configForm.addEventListener('submit', (e) => {
                 tableBody.innerHTML = '';
                 for (const moder of moders) {
                     const tr = document.createElement('tr');
+                    tr.dataset.id = moder.id;
                     tr.innerHTML = `<td>${moder.id}</td><td>${moder.username}</td>` +
                       `<td>` +
-                        `<button class="btn-small" data-action="reset" data-id="${moder.id}" title="Сменить пароль">🔑</button> ` +
-                        `<button class="btn-small" data-action="delete" data-id="${moder.id}" title="Удалить">🗑️</button>` +
+                        `<button class="btn-small" data-action="reset" title="Сменить пароль">🔑</button> ` +
+                        `<button class="btn-small" data-action="delete" title="Удалить">🗑️</button>` +
                       `</td>`;
                     tableBody.appendChild(tr);
                 }
@@ -612,26 +790,52 @@ configForm.addEventListener('submit', (e) => {
         document.getElementById('moders-table').addEventListener('click', async (e) => {
             const btn = e.target.closest('button');
             if (!btn) return;
-            const id = btn.getAttribute('data-id');
+            const id = btn.closest('tr').dataset.id;
             const action = btn.getAttribute('data-action');
             if (action === 'delete') {
-                if (!confirm('Удалить модератора?')) return;
+                showConfirm('Удалить модератора?', async () => {
                 try {
                     const res = await apiFetch(`/api/settings/moders/${id}`, { method: 'DELETE' });
                     if (res.ok) {
                         loadModers();
                         showToast('Модератор удален', 'success');
                     } else {
-                        alert('Ошибка удаления');
+                            showToast('Ошибка удаления', 'error');
+                        }
+                    } catch (e) {
                         showToast('Ошибка удаления', 'error');
                     }
-                } catch (e) {
-                    alert('Ошибка удаления');
-                    showToast('Ошибка удаления', 'error');
-                }
+                });
             } else if (action === 'reset') {
-                const newPass = prompt('Введите новый пароль для модератора:');
-                if (!newPass) return;
+                const row = btn.closest('tr');
+                const actionsCell = row.cells[2];
+
+                // Если мы уже в режиме редактирования, ничего не делаем
+                if (actionsCell.querySelector('input')) return;
+
+                // Сохраняем оригинальные кнопки
+                const originalButtons = actionsCell.innerHTML;
+                
+                // Создаем поле ввода и кнопки
+                actionsCell.innerHTML = `
+                    <input type="password" placeholder="Новый пароль" class="moder-pass-input">
+                    <button class="btn-small" data-action="save-pass" title="Сохранить">✅</button>
+                    <button class="btn-small" data-action="cancel-pass" title="Отмена">❌</button>
+                `;
+
+                const input = actionsCell.querySelector('input');
+                input.focus();
+                
+                const saveBtn = actionsCell.querySelector('[data-action="save-pass"]');
+                const cancelBtn = actionsCell.querySelector('[data-action="cancel-pass"]');
+
+                const handleSave = async () => {
+                    const newPass = input.value;
+                    if (!newPass || newPass.length < 4) {
+                        showToast('Пароль должен быть не менее 4 символов', 'error');
+                        return;
+                    }
+
                 try {
                     const res = await apiFetch(`/api/settings/moders/${id}`, {
                         method: 'PUT',
@@ -639,16 +843,22 @@ configForm.addEventListener('submit', (e) => {
                         body: JSON.stringify({ password: newPass })
                     });
                     if (res.ok) {
-                        alert('Пароль обновлён');
                         showToast('Пароль обновлён', 'success');
+                            actionsCell.innerHTML = originalButtons; // Возвращаем кнопки
                     } else {
-                        alert('Ошибка смены пароля');
+                            showToast('Ошибка смены пароля', 'error');
+                        }
+                    } catch (e) {
                         showToast('Ошибка смены пароля', 'error');
                     }
-                } catch (e) {
-                    alert('Ошибка смены пароля');
-                    showToast('Ошибка смены пароля', 'error');
-                }
+                };
+
+                const handleCancel = () => {
+                    actionsCell.innerHTML = originalButtons;
+                };
+                
+                saveBtn.addEventListener('click', handleSave);
+                cancelBtn.addEventListener('click', handleCancel);
             }
         });
     }

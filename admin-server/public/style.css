@@ -198,29 +198,68 @@ button:active, .btn-small:active, .tab-btn:active {
 
 /* --- Модальное окно --- */
 .modal {
-    display: none;
-    position: fixed;
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Остается на месте при скролле */
     z-index: 1000;
-    left: 0; top: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.25);
-    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Включает скролл, если нужно */
+    background-color: rgba(0,0,0,0.5); /* Полупрозрачный фон */
     justify-content: center;
-    animation: fadeIn 0.2s;
+    align-items: center;
 }
+
 .modal-content {
-    background: #fff;
-    border-radius: 10px;
-    padding: 30px 28px 18px 28px;
-    max-width: 80%;
-    max-height: 75vh; /* Ограничение по высоте окна */
-    overflow-y: auto;  /* Скролл при переполнении */
-    overflow-x: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    position: relative;
-    animation: slideDown 0.2s;
-    margin: 0 auto;
-    margin-top: 5%;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 8px;
 }
+
+.monitoring-filters {
+    margin-bottom: 15px;
+}
+
+.monitoring-filters label {
+    margin-right: 20px;
+}
+
+.log-level-label {
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+tr.log-level-error {
+    background-color: #ffdddd;
+}
+tr.log-level-error .log-level-label {
+    background-color: #d63031;
+}
+
+tr.log-level-warn {
+    background-color: #fff3cd;
+}
+tr.log-level-warn .log-level-label {
+    background-color: #fdcb6e;
+}
+
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+}
+
 .close {
     position: absolute;
     right: 18px;
@@ -411,7 +450,8 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:f
   gap: 10px;
 }
 .toast {
-  min-width: 200px;
+    visibility: hidden;
+    min-width: 250px;
   max-width: 350px;
   background: #333;
   color: #fff;
@@ -459,6 +499,9 @@ input[type="text"], input[type="password"], input[type="number"] {
 input:focus { border: 1.5px solid #0056b3; outline: none; background: #fff; }
 input:invalid { border: 1.5px solid #ff4136; background: #fff6f6; }
 .form-error { color: #ff4136; font-size: 14px; margin: 2px 0 8px 0; }
+.warning-text {
+    color: #ff8c00; /* DarkOrange */
+}
 .btn-small {
   background: #e3e8ee;
   color: #0056b3;
@@ -502,3 +545,13 @@ button[type="submit"]:hover { background: #27ae38; }
 }
 .moders-table tr:nth-child(even) { background: #fafdff; }
 .moders-table tr:hover { background: #eaf3ff; } 
+
+.moder-pass-input {
+    width: 100px;
+    margin-right: 5px;
+}
+
+.password-wrapper {
+    display: inline-flex;
+    align-items: center;
+} 

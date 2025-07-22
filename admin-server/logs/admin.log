@@ -686,3 +686,70 @@
 [2025-07-21T09:23:10.573Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
 [2025-07-21T09:23:10.573Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
 [2025-07-21T09:23:22.933Z] [INFO] Login successful
+[2025-07-21T10:09:55.753Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T10:09:55.753Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T10:09:55.753Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T10:10:03.039Z] [INFO] Login successful
+[2025-07-21T13:43:08.772Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T13:43:08.772Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T13:43:08.773Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T13:47:07.278Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-21T13:47:07.279Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-21T13:47:07.279Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-21T13:58:50.641Z] [INFO] Login successful
+[2025-07-22T06:05:58.792Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T06:05:58.793Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T06:05:58.794Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T06:07:04.536Z] [INFO] Login successful
+[2025-07-22T06:09:05.609Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T06:09:05.610Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T06:09:05.610Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T06:09:11.617Z] [INFO] Login successful
+[2025-07-22T06:28:07.919Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T06:28:07.920Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T06:28:07.920Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T06:28:14.928Z] [INFO] Login successful
+[2025-07-22T06:33:20.493Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T06:33:20.493Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T06:33:20.493Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T06:54:10.099Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T06:54:10.099Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T06:54:10.100Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T07:11:53.589Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T07:11:53.589Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T07:11:53.590Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T07:12:39.235Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T07:12:39.236Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T07:12:39.236Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T07:13:30.853Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T07:13:30.854Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T07:13:30.854Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T07:56:29.520Z] [INFO] Admin server running on http://localhost:3005:3005
+[2025-07-22T07:56:29.520Z] [INFO] Card logs path: D:\rasch\backend\logs\cards.log
+[2025-07-22T07:56:29.521Z] [INFO] Test logs path: D:\rasch\admin-server\logs\test.log
+[2025-07-22T07:57:32.522Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-22T07:57:32.522Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-22T07:57:32.524Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-22T07:57:32.525Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-22T07:57:32.597Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-22T07:57:32.598Z] [WARN] [LOGIN] Неверный пароль для пользователя: grivova
+[2025-07-22T07:57:43.460Z] [INFO] [LOGIN] Попытка входа: vova
+[2025-07-22T07:57:43.461Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-22T07:57:43.462Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-22T07:57:43.462Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-22T07:57:43.512Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-22T07:57:43.513Z] [WARN] [LOGIN] Неверный пароль для пользователя: vova
+[2025-07-22T07:58:02.538Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-22T07:58:02.539Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-22T07:58:02.540Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-22T07:58:02.541Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-22T07:58:02.591Z] [INFO] [LOGIN] Результат сравнения пароля: false
+[2025-07-22T07:58:02.592Z] [WARN] [LOGIN] Неверный пароль для пользователя: grivova
+[2025-07-22T07:58:08.732Z] [INFO] [LOGIN] Попытка входа: grivova
+[2025-07-22T07:58:08.732Z] [INFO] [LOGIN] Проверка подключения к базе...
+[2025-07-22T07:58:08.734Z] [INFO] [LOGIN] Результат поиска пользователя: найден
+[2025-07-22T07:58:08.734Z] [INFO] [LOGIN] Сравнение пароля через bcrypt...
+[2025-07-22T07:58:08.784Z] [INFO] [LOGIN] Результат сравнения пароля: true
+[2025-07-22T07:58:08.784Z] [INFO] [LOGIN] Сессия установлена: {"isModerator":true,"userId":3,"username":"grivova"}
+[2025-07-22T07:58:08.785Z] [INFO] [LOGIN] Ответ отправлен
+[2025-07-22T08:00:13.910Z] [INFO] Login successful

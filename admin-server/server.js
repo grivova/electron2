@@ -26,7 +26,11 @@ const PORT = process.env.PORT || 3005;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const SECRET_KEY = process.env.SECRET_KEY || 'mhmh4563463fds';
 const LOGS_DIR = path.join(__dirname, process.env.LOGS_DIR);
+const ADMIN_LOG_DIR = path.join(__dirname, process.env.ADMIN_LOG_DIR);
 const CARD_LOG_PATH = path.join(LOGS_DIR, process.env.CARD_LOG_PATH);
+const ADMIN_LOG = path.join(ADMIN_LOG_DIR, process.env.ADMIN_LOG);
+const BACKEND_APP_LOG = path.join(__dirname, process.env.BACKEND_APP_LOG);
+const CARD_LOG = path.join(__dirname, process.env.CARD_LOG);
 const TEST_LOG_PATH = path.join(__dirname, 'logs', 'test.log'); 
 const ADMIN_URL = process.env.ADMIN_URL;
 
@@ -381,12 +385,16 @@ app.get('/api/settings/mssql', checkAuth, async (req, res) => {
 });
 // Обновить параметры MS SQL
 app.post('/api/settings/mssql', checkAuth, async (req, res) => {
-  const { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME } = req.body;
-  if (!DB_USER || !DB_PASSWORD || !DB_SERVER || !DB_NAME) {
-    return res.status(400).json({ message: 'Все поля обязательны' });
+  const updates = req.body;
+  // Не обновляем пароль, если он пришел пустой, но не был явно изменен
+  if (updates.DB_PASSWORD === '') {
+      delete updates.DB_PASSWORD;
+  }
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ message: 'Нет данных для обновления' });
   }
   try {
-    await updateEnv(configEnvPath, { DB_USER, DB_PASSWORD, DB_SERVER, DB_NAME });
+    await updateEnv(configEnvPath, updates);
     res.json({ message: 'Параметры MS SQL обновлены' });
   } catch (e) {
     logger.error('Ошибка записи config.env:', e);
@@ -411,12 +419,15 @@ app.get('/api/settings/mysql', checkAuth, async (req, res) => {
 });
 // Обновить параметры MySQL
 app.post('/api/settings/mysql', checkAuth, async (req, res) => {
-  const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = req.body;
-  if (!MYSQL_HOST || !MYSQL_PORT || !MYSQL_USER || !MYSQL_PASSWORD || !MYSQL_DATABASE) {
-    return res.status(400).json({ message: 'Все поля обязательны' });
+    const updates = req.body;
+    if (updates.MYSQL_PASSWORD === '') {
+        delete updates.MYSQL_PASSWORD;
+    }
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ message: 'Нет данных для обновления' });
   }
   try {
-    await updateEnv(modersEnvPath, { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE });
+    await updateEnv(modersEnvPath, updates);
     res.json({ message: 'Параметры MySQL обновлены' });
   } catch (e) {
     logger.error('Ошибка записи moders/config.env:', e);
@@ -577,7 +588,68 @@ app.delete('/api/settings/moders/:id', checkAuth, async (req, res) => {
     res.status(500).json({ message: 'Ошибка удаления модератора' });
   }
 });
+app.get('/api/monitoring/logs', checkAuth, async (req, res) => {
+  const logSources = [
+      { name: 'Admin', path: ADMIN_LOG },
+      { name: 'Backend', path: BACKEND_APP_LOG },
+      { name: 'CardReader', path: CARD_LOG }
+  ];
 
+  let allEvents = [];
+
+  for (const source of logSources) {
+      try {
+          if (!fs.existsSync(source.path)) continue;
+
+          const content = await fs.readFile(source.path, 'utf-8');
+          const lines = content.split(/\r?\n/);
+
+          lines.forEach(line => {
+              if (!line) return;
+              // Пробуем распарсить JSON-строку из winston
+              try {
+                  const jsonLog = JSON.parse(line);
+                  if (['warn', 'error'].includes(jsonLog.level?.toLowerCase())) {
+                      allEvents.push({
+                          timestamp: jsonLog.timestamp || new Date().toISOString(),
+                          level: jsonLog.level.toUpperCase(),
+                          source: source.name,
+                          message: jsonLog.message
+                      });
+                  }
+                  return;
+              } catch (e) {
+                  // Не JSON, пробуем парсить как обычный текст
+              }
+              const match = line.match(/\[([^\]]+)\] \[([^\]]+)\] (.*)/);
+              if (match) {
+                  const level = match[2].toLowerCase();
+                  if (['warn', 'error'].includes(level)) {
+                      allEvents.push({
+                          timestamp: new Date(match[1]).toISOString(),
+                          level: level.toUpperCase(),
+                          source: source.name,
+                          message: match[3]
+                      });
+                  }
+              }
+          });
+      } catch (err) {
+          console.error(`Error reading or parsing log file ${source.path}:`, err);
+          allEvents.push({
+              timestamp: new Date().toISOString(),
+              level: 'ERROR',
+              source: 'Monitoring',
+              message: `Could not read log file: ${source.name}`
+          });
+      }
+  }
+
+  // Сортировка по дате, самые новые вверху
+  allEvents.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  res.json(allEvents);
+});
 server.listen(PORT, () => {
     logger.info(`Admin server running on ${ADMIN_URL}:${PORT}`);
     logger.info(`Card logs path: ${CARD_LOG_PATH}`);
