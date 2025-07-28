@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const password = loginForm.elements['password'].value;
             try {
-                const response = await fetch('/login', {
+                const response = await fetch('/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ password })
@@ -149,7 +149,7 @@ configForm.addEventListener('submit', (e) => {
         adminDbStatusEl.style.color = '#333';
         backendDbStatusEl.style.color = '#333';
 
-        fetch('/api/check-db')
+        fetch('/api/health/check-db')
             .then(response => response.json())
             .then(data => {
                 renderStatus(adminDbStatusEl, adminDbMessageEl, data.adminToDb);
@@ -243,7 +243,7 @@ configForm.addEventListener('submit', (e) => {
 
     function fetchCardLogs() {
         cardLogsElement.textContent = 'загрузка...';
-        fetch('/api/card-logs')
+        fetch('/api/card/card-logs')
             .then(response => {
                 if (!response.ok) throw new Error('Не удалось загрузить логи считывателя');
                 return response.text();
@@ -728,7 +728,7 @@ configForm.addEventListener('submit', (e) => {
             const tableBody = document.querySelector('#moders-table tbody');
             tableBody.innerHTML = '<tr><td colspan="3">Загрузка...</td></tr>';
             try {
-                const res = await apiFetch('/api/settings/moders');
+                const res = await apiFetch('/api/moders');
                 const moders = await res.json();
                 if (!Array.isArray(moders) || !moders.length) {
                     tableBody.innerHTML = '<tr><td colspan="3">Нет модераторов</td></tr>';
@@ -763,7 +763,7 @@ configForm.addEventListener('submit', (e) => {
                 return;
             }
             try {
-                const res = await apiFetch('/api/settings/moders', {
+                const res = await apiFetch('/api/moders', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
@@ -795,7 +795,7 @@ configForm.addEventListener('submit', (e) => {
             if (action === 'delete') {
                 showConfirm('Удалить модератора?', async () => {
                 try {
-                    const res = await apiFetch(`/api/settings/moders/${id}`, { method: 'DELETE' });
+                    const res = await apiFetch(`/api/moders/${id}`, { method: 'DELETE' });
                     if (res.ok) {
                         loadModers();
                         showToast('Модератор удален', 'success');
@@ -837,7 +837,7 @@ configForm.addEventListener('submit', (e) => {
                     }
 
                 try {
-                    const res = await apiFetch(`/api/settings/moders/${id}`, {
+                    const res = await apiFetch(`/api/moders/${id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ password: newPass })

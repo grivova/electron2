@@ -4,6 +4,9 @@ const db = require('../db');
 const router = express.Router();
 const logger = require('../../logger');
 const rateLimit = require('express-rate-limit');
+const csurf = require('csurf');
+
+const csrfProtection = csurf({ cookie: false });
 
 const loginLimiter = rateLimit({
   windowMs: 30 * 60 * 1000, // 30 минут
@@ -11,6 +14,10 @@ const loginLimiter = rateLimit({
   message: { message: 'Слишком много попыток входа. Попробуйте позже.' },
   standardHeaders: true,
   legacyHeaders: false
+});
+
+router.get('/csrf-token', csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
 });
 
 router.post('/moder-login', loginLimiter, async (req, res) => {

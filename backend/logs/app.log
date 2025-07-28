@@ -503,3 +503,61 @@
 {"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:57:21 2025-07-22 "}
 {"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:57:21 2025-07-22 "}
 {"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"11:00:24 2025-07-22 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"09:59:15 2025-07-23 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"10:00:21 2025-07-23 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"10:00:21 2025-07-23 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"10:00:21 2025-07-23 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:00:31 2025-07-23 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:00:31 2025-07-23 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:00:31 2025-07-23 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:00:31 2025-07-23 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:43 2025-07-23 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:43 2025-07-23 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:43 2025-07-23 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:44 2025-07-23 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:46 2025-07-23 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"10:17:46 2025-07-23 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"10:35:17 2025-07-28 "}
+{"level":"info","message":"Server is running on http://0.0.0.0:3001","service":"user-service","timestamp":"15:01:02 2025-07-28 "}
+{"level":"info","message":"[Config] Trying to load config from: D:\\rasch\\frontend\\src\\config.json","service":"user-service","timestamp":"15:01:58 2025-07-28 "}
+{"adminServerUrl":"http://localhost:3005","adminUrl":"http://localhost:3005","backendUrl":"http://localhost:3001","frontUrl":"http://localhost:3000","level":"info","message":"[Config] External config loaded successfully:","service":"user-service","timestamp":"15:01:58 2025-07-28 "}
+{"0":"COM1","level":"info","message":"Доступные порты:","service":"user-service","timestamp":"15:01:58 2025-07-28 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:00 2025-07-28 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:00 2025-07-28 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:00 2025-07-28 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:01 2025-07-28 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:03 2025-07-28 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"15:08:03 2025-07-28 "}
+{"level":"info","message":"Payslip request - Period: 012025, File: 23959.pdf","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Base path from config: \\\\PC-20081\\payslips","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Final payslip path: \\\\PC-20081\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Base path exists: true","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Base path stats: {\"isDirectory\":true,\"permissions\":16822,\"size\":0}","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Base path contents: [\"012025\",\"test.pdf\"]","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Period path exists: true (\\\\PC-20081\\payslips\\012025)","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Period path contents: [\"23959.pdf\"]","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Payslip found, sending file: \\\\PC-20081\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"16:18:05 2025-07-28 "}
+{"level":"info","message":"Payslip request - Period: 072025, File: 23959.pdf","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Base path from config: \\\\PC-20081\\payslips","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Final payslip path: \\\\PC-20081\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Base path exists: true","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Base path stats: {\"isDirectory\":true,\"permissions\":16822,\"size\":0}","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Base path contents: [\"012025\",\"test.pdf\"]","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Period path exists: false (\\\\PC-20081\\payslips\\072025)","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"warn","message":"Payslip not found: \\\\PC-20081\\payslips\\072025\\23959.pdf","service":"user-service","timestamp":"16:18:08 2025-07-28 "}
+{"level":"info","message":"Payslip request - Period: 012025, File: 23959.pdf","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Base path from config: \\\\PC-20081\\payslips","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Network share connection for payslip: true","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Final payslip path: \\\\PC-20081\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Base path exists: true","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Base path stats: {\"isDirectory\":true,\"permissions\":16822,\"size\":0}","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Base path contents: [\"012025\",\"test.pdf\"]","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Period path exists: true (\\\\PC-20081\\payslips\\012025)","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Period path contents: [\"23959.pdf\"]","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"level":"info","message":"Payslip found, sending file: \\\\PC-20081\\payslips\\012025\\23959.pdf","service":"user-service","timestamp":"16:18:14 2025-07-28 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:22:16 2025-07-28 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:22:16 2025-07-28 "}
+{"exists":true,"level":"info","message":"Checking document","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:22:16 2025-07-28 "}
+{"level":"info","message":"Document converted successfully","path":"D:\\rasch\\frontend\\public\\handbook.docx","service":"user-service","timestamp":"16:22:16 2025-07-28 "}
