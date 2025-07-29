@@ -1179,3 +1179,55 @@
 [2025-07-28T13:31:00.084Z] [INFO] Card logs initialized successfully
 [2025-07-28T13:31:05.975Z] [INFO] New WebSocket connection
 [2025-07-28T13:31:10.348Z] [INFO] WebSocket connection closed
+[2025-07-28T13:49:29.465Z] [INFO] Server running on http://localhost:3005
+[2025-07-28T13:49:29.468Z] [INFO] Card logs initialized successfully
+[2025-07-28T13:50:11.012Z] [INFO] New WebSocket connection
+[2025-07-28T13:50:14.243Z] [INFO] WebSocket connection closed
+[2025-07-28T13:51:39.743Z] [INFO] Server running on http://localhost:3005
+[2025-07-28T13:51:39.746Z] [INFO] Card logs initialized successfully
+[2025-07-28T13:51:49.286Z] [INFO] New WebSocket connection
+[2025-07-28T13:51:50.317Z] [INFO] WebSocket connection closed
+[2025-07-29T05:47:16.690Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T05:47:16.695Z] [INFO] Card logs initialized successfully
+[2025-07-29T05:48:41.648Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T05:48:41.649Z] [INFO] Card logs initialized successfully
+[2025-07-29T05:49:23.926Z] [INFO] Login successful
+[2025-07-29T05:50:44.165Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T05:50:44.167Z] [INFO] Card logs initialized successfully
+[2025-07-29T05:50:51.082Z] [INFO] New WebSocket connection
+[2025-07-29T05:50:52.399Z] [INFO] WebSocket connection closed
+[2025-07-29T07:55:32.314Z] [INFO] Card log path initialized: D:\rasch\admin-server\logs\cards.log
+[2025-07-29T07:55:32.317Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-29T07:55:32.317Z] [INFO] Configuration loaded from: local files
+[2025-07-29T07:55:32.320Z] [INFO] Card log file created at: D:\rasch\admin-server\logs\cards.log
+[2025-07-29T07:55:32.320Z] [INFO] Card logs initialized successfully
+[2025-07-29T07:56:01.662Z] [INFO] Card log path initialized: D:\rasch\admin-server\logs\cards.log
+[2025-07-29T07:56:01.673Z] [INFO] Admin server running on http://localhost:3005
+[2025-07-29T07:56:01.674Z] [INFO] Configuration loaded from: local files
+[2025-07-29T07:56:01.677Z] [INFO] Card logs initialized successfully
+[2025-07-29T07:57:30.027Z] [ERROR] Error: Access denied for user ''@'localhost' (using password: YES)
+    at PromisePool.query (D:\rasch\admin-server\node_modules\express-mysql-session\node_modules\mysql2\promise.js:356:22)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:384:30
+    at new Promise (<anonymous>)
+    at MySQLStore.query (D:\rasch\admin-server\node_modules\express-mysql-session\index.js:381:10)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:232:16
+[2025-07-29T07:57:30.269Z] [ERROR] Error: Access denied for user ''@'localhost' (using password: YES)
+    at PromisePool.query (D:\rasch\admin-server\node_modules\express-mysql-session\node_modules\mysql2\promise.js:356:22)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:384:30
+    at new Promise (<anonymous>)
+    at MySQLStore.query (D:\rasch\admin-server\node_modules\express-mysql-session\index.js:381:10)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:170:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-07-29T07:57:30.281Z] [ERROR] Error: Access denied for user ''@'localhost' (using password: YES)
+    at PromisePool.query (D:\rasch\admin-server\node_modules\express-mysql-session\node_modules\mysql2\promise.js:356:22)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:384:30
+    at new Promise (<anonymous>)
+    at MySQLStore.query (D:\rasch\admin-server\node_modules\express-mysql-session\index.js:381:10)
+    at D:\rasch\admin-server\node_modules\express-mysql-session\index.js:170:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-07-29T08:04:47.293Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T08:04:47.296Z] [INFO] Card logs initialized successfully
+[2025-07-29T09:10:07.396Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T09:10:07.400Z] [INFO] Card logs initialized successfully
+[2025-07-29T11:18:24.828Z] [INFO] Server running on http://localhost:3005
+[2025-07-29T11:18:24.830Z] [INFO] Card logs initialized successfully
